@@ -1,46 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Sign Up - WorkedIn</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="firebase.js"></script>
-</head>
-<body>
-  <div class="login-container">
-    <h2>Create Account</h2>
+<html>
+  <head>
+    <title>Sign Up</title>
+    <script type="module" src="firebase.js"></script>
+  </head>
+  <body>
+    <h2>Sign Up</h2>
     <input type="email" id="email" placeholder="Email" />
     <input type="password" id="password" placeholder="Password" />
-    <button onclick="signup()">Sign Up</button>
-    <button onclick="signupWithGoogle()">Sign up with Google</button>
-  </div>
+    <button onclick="signUp()">Sign Up</button>
+    <p id="error"></p>
 
-  <script type="module">
-    import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-    import { app } from "./firebase.js";
+    <script type="module">
+      import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+      import { app } from "./firebase.js";
 
-    const auth = getAuth(app);
+      const auth = getAuth(app);
 
-    window.signup = async function () {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      try {
-        await createUserWithEmailAndPassword(auth, email, password);
-        alert("Account created!");
-      } catch (error) {
-        alert("Error: " + error.message);
-      }
-    };
+      window.signUp = function () {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
 
-    window.signupWithGoogle = async function () {
-      const provider = new GoogleAuthProvider();
-      try {
-        await signInWithPopup(auth, provider);
-        alert("Signed up with Google!");
-      } catch (error) {
-        alert("Google Sign-Up failed: " + error.message);
-      }
-    };
-  </script>
-</body>
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            alert("Signup successful!");
+            window.location.href = "login.html";
+          })
+          .catch((error) => {
+            document.getElementById("error").innerText = error.message;
+          });
+      };
+    </script>
+  </body>
 </html>
