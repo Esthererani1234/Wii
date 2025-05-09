@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - WorkedIn</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="firebase.js"></script>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login to WorkedIn</h2>
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="login()">Login</button>
+    <button onclick="loginWithGoogle()">Sign in with Google</button>
+  </div>
+
+  <script type="module">
+    import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { app } from "./firebase.js";
+    
+    const auth = getAuth(app);
+
+    window.login = async function () {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert("Logged in!");
+      } catch (error) {
+        alert("Error: " + error.message);
+      }
+    };
+
+    window.loginWithGoogle = async function () {
+      const provider = new GoogleAuthProvider();
+      try {
+        await signInWithPopup(auth, provider);
+        alert("Signed in with Google!");
+      } catch (error) {
+        alert("Google Sign-In failed: " + error.message);
+      }
+    };
+  </script>
+</body>
+</html>
