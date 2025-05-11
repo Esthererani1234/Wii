@@ -1,4 +1,4 @@
-// Sample product data
+// Sample product data (placeholder until AliExpress is integrated)
 const products = [
   {
     name: "Wireless Earbuds",
@@ -10,13 +10,13 @@ const products = [
     name: "Smart Watch",
     price: "$24.99",
     image: "https://placehold.co/300x300?text=Smart+Watch",
-    description: "This Smart Watch is a placeholder item. It will be replaced with live data from suppliers."
+    description: "This Smart Watch is a placeholder item. It will be replaced with live data from AliExpress."
   },
   {
     name: "Bluetooth Speaker",
     price: "$29.99",
     image: "https://placehold.co/300x300?text=Bluetooth+Speaker",
-    description: "Sample Bluetooth Speaker to demonstrate layout. Actual product details will load in the future."
+    description: "Sample Bluetooth Speaker to demonstrate layout. Actual product details will load from AliExpress soon."
   }
 ];
 
@@ -35,23 +35,21 @@ function displayProducts(filteredList = products) {
       <h3>${product.name}</h3>
       <p>${product.price}</p>
     `;
-
     card.addEventListener("click", () => {
       localStorage.setItem("selectedProduct", JSON.stringify(product));
       window.location.href = "product.html";
     });
-
     productGrid.appendChild(card);
   });
 }
 
-// Display one product on product.html
+// Show selected product on product.html
 function displaySingleProduct() {
   const product = JSON.parse(localStorage.getItem("selectedProduct"));
   if (!product) return;
 
   const image = document.querySelector(".product-img");
-  const name = document.querySelector(".product-info h2");
+  const name = document.querySelector("h2");
   const price = document.querySelector(".product-price");
   const description = document.querySelector(".product-description");
 
@@ -61,66 +59,70 @@ function displaySingleProduct() {
   if (description) description.textContent = product.description;
 }
 
-// Run correct logic depending on page
+// Add to Cart
+const addToCartBtn = document.getElementById("addToCartBtn");
+if (addToCartBtn) {
+  addToCartBtn.addEventListener("click", () => {
+    const product = JSON.parse(localStorage.getItem("selectedProduct"));
+    if (!product) return;
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const exists = cart.find(item => item.name === product.name);
+    if (!exists) {
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Added to cart!");
+    } else {
+      alert("This item is already in your cart.");
+    }
+  });
+}
+
+// Display cart items
+function displayCart() {
+  const cartContainer = document.getElementById("cartItems");
+  if (!cartContainer) return;
+
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  if (cart.length === 0) {
+    cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+    return;
+  }
+
+  cartContainer.innerHTML = "";
+
+  cart.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "product-card";
+    div.innerHTML = `
+      <img src="${item.image}" alt="${item.name}" />
+      <h3>${item.name}</h3>
+      <p>${item.price}</p>
+    `;
+    cartContainer.appendChild(div);
+  });
+}
+
+// Auto-run functions based on page
 window.onload = () => {
   if (document.querySelector(".product-grid")) {
     displayProducts();
-  } else if (document.querySelector(".product-detail")) {
+  }
+  if (document.querySelector(".product-detail")) {
     displaySingleProduct();
+  }
+  if (document.querySelector("#cartItems")) {
+    displayCart();
   }
 
   const searchInput = document.querySelector(".search-box");
   if (searchInput) {
     searchInput.addEventListener("input", () => {
       const keyword = searchInput.value.toLowerCase();
-      const filtered = products.filter(product =>
-        product.name.toLowerCase().includes(keyword)
-      );
+      const filtered = products.filter(p => p.name.toLowerCase().includes(keyword));
       displayProducts(filtered);
-    });
-  }
-
-  // Add to Cart button logic
-  const addToCartBtn = document.getElementById("addToCartBtn");
-  if (addToCartBtn) {
-    addToCartBtn.addEventListener("click", () => {
-      const product = JSON.parse(localStorage.getItem("selectedProduct"));
-      if (!product) return;
-
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-      const exists = cart.find(item => item.name === product.name);
-      if (!exists) {
-        cart.push(product);
-        localStorage.setItem("cart", JSON.stringify(cart));
-        alert("Added to cart!");
-      } else {
-        alert("This item is already in your cart.");
-      }
-    });
-  }
-
-  // Display cart contents
-  const cartItemsContainer = document.getElementById("cartItems");
-  if (cartItemsContainer) {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    if (cart.length === 0) {
-      cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
-      return;
-    }
-
-    cartItemsContainer.innerHTML = "";
-
-    cart.forEach(item => {
-      const div = document.createElement("div");
-      div.className = "product-card";
-      div.innerHTML = `
-        <img src="${item.image}" alt="${item.name}" />
-        <h3>${item.name}</h3>
-        <p>${item.price}</p>
-      `;
-      cartItemsContainer.appendChild(div);
     });
   }
 };
