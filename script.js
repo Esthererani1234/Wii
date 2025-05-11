@@ -100,3 +100,27 @@ if (addToCartBtn) {
     }
   });
 }
+// Load and display cart items in cart.html
+function displayCart() {
+  const cartContainer = document.getElementById("cartItems");
+  if (!cartContainer) return;
+
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  if (cart.length === 0) {
+    cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+    return;
+  }
+
+  cartContainer.innerHTML = "";
+  cart.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "product-card";
+    div.innerHTML = `
+      <img src="${item.image}" alt="${item.name}" />
+      <h3>${item.name}</h3>
+      <p>${item.price}</p>
+    `;
+    cartContainer.appendChild(div);
+  });
+}
