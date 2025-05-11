@@ -4,30 +4,30 @@ const products = [
     name: "Wireless Earbuds",
     price: "$19.99",
     image: "https://via.placeholder.com/150",
-    description: "These are sample Wireless Earbuds with high-quality sound and sleek design."
+    description: "These are sample Wireless Earbuds. When we integrate AliExpress later, real descriptions will appear here."
   },
   {
     name: "Smart Watch",
     price: "$24.99",
     image: "https://via.placeholder.com/150",
-    description: "A stylish Smart Watch with fitness tracking and message notifications."
+    description: "This Smart Watch is a placeholder item. It will be replaced with live data from AliExpress."
   },
   {
     name: "Bluetooth Speaker",
     price: "$29.99",
     image: "https://via.placeholder.com/150",
-    description: "Portable Bluetooth speaker with powerful bass and long battery life."
+    description: "Sample Bluetooth Speaker to demonstrate layout. Actual product details will load soon."
   }
 ];
 
-// Function to render products to the product grid
-function displayProducts() {
+// Function to display all products on index.html
+function displayProducts(filteredList = products) {
   const productGrid = document.querySelector(".product-grid");
   if (!productGrid) return;
 
-  productGrid.innerHTML = "";
+  productGrid.innerHTML = ""; // Clear previous items
 
-  products.forEach((product, index) => {
+  filteredList.forEach(product => {
     const card = document.createElement("div");
     card.className = "product-card";
     card.innerHTML = `
@@ -35,16 +35,18 @@ function displayProducts() {
       <h3>${product.name}</h3>
       <p>${product.price}</p>
     `;
+
     card.addEventListener("click", () => {
       localStorage.setItem("selectedProduct", JSON.stringify(product));
       window.location.href = "product.html";
     });
+
     productGrid.appendChild(card);
   });
 }
 
-// Function to display a single product in product.html
-function displayProducts(filteredList = products) {
+// Function to show single product details in product.html
+function displaySingleProduct() {
   const product = JSON.parse(localStorage.getItem("selectedProduct"));
   if (!product) return;
 
@@ -59,22 +61,23 @@ function displayProducts(filteredList = products) {
   if (description) description.textContent = product.description;
 }
 
-// Detect which page we're on
+// Auto-detect which page we’re on
 window.onload = () => {
   if (document.querySelector(".product-grid")) {
     displayProducts();
   } else if (document.querySelector(".product-detail")) {
     displaySingleProduct();
   }
-};
-const searchInput = document.querySelector(".search-box");
 
-if (searchInput) {
-  searchInput.addEventListener("input", () => {
-    const keyword = searchInput.value.toLowerCase();
-    const filtered = products.filter(product =>
-      product.name.toLowerCase().includes(keyword)
-    );
-    displayProducts(filtered);
-  });
-}
+  // Live product search on homepage
+  const searchInput = document.querySelector(".search-box");
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      const keyword = searchInput.value.toLowerCase();
+      const filtered = products.filter(product =>
+        product.name.toLowerCase().includes(keyword)
+      );
+      displayProducts(filtered);
+    });
+  }
+};
