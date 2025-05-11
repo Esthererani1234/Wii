@@ -81,3 +81,22 @@ window.onload = () => {
     });
   }
 };
+const addToCartBtn = document.getElementById("addToCartBtn");
+
+if (addToCartBtn) {
+  addToCartBtn.addEventListener("click", () => {
+    const product = JSON.parse(localStorage.getItem("selectedProduct"));
+    if (!product) return;
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const exists = cart.find(item => item.name === product.name);
+    if (!exists) {
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Added to cart!");
+    } else {
+      alert("This item is already in your cart.");
+    }
+  });
+}
