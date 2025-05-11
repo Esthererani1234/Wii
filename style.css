@@ -1,1 +1,45 @@
 body { font-family: Arial; background-color: #f0f0f0; text-align: center; padding: 40px; }
+/* Dashboard Styling */
+.main-header {
+  background-color: #2d2dff;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+nav {
+  margin-top: 10px;
+}
+
+nav a,
+nav button {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+nav a.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.dashboard-box {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
