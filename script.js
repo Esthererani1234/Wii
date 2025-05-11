@@ -1,32 +1,31 @@
-// Sample product data (placeholder until AliExpress is integrated)
+// Sample product data (placeholder until AliExpress integration)
 const products = [
   {
     name: "Wireless Earbuds",
     price: "$19.99",
     image: "https://placehold.co/300x300?text=Wireless+Earbuds",
-    description: "These are sample Wireless Earbuds. When we integrate AliExpress later, real descriptions will appear here."
+    description: "These are sample Wireless Earbuds. Real listings will load here from AliExpress."
   },
   {
     name: "Smart Watch",
     price: "$24.99",
     image: "https://placehold.co/300x300?text=Smart+Watch",
-    description: "This Smart Watch is a placeholder item. It will be replaced with live data from AliExpress."
+    description: "This Smart Watch is a placeholder item. It will be replaced with live data from suppliers."
   },
   {
     name: "Bluetooth Speaker",
     price: "$29.99",
     image: "https://placehold.co/300x300?text=Bluetooth+Speaker",
-    description: "Sample Bluetooth Speaker to demonstrate layout. Actual product details will load from AliExpress soon."
+    description: "Sample Bluetooth Speaker for layout. Real data will be fetched later."
   }
 ];
 
 // Display all products on homepage
 function displayProducts(filteredList = products) {
-  const productGrid = document.querySelector(".product-grid");
-  if (!productGrid) return;
+  const grid = document.querySelector(".product-grid");
+  if (!grid) return;
 
-  productGrid.innerHTML = "";
-
+  grid.innerHTML = "";
   filteredList.forEach(product => {
     const card = document.createElement("div");
     card.className = "product-card";
@@ -39,7 +38,7 @@ function displayProducts(filteredList = products) {
       localStorage.setItem("selectedProduct", JSON.stringify(product));
       window.location.href = "product.html";
     });
-    productGrid.appendChild(card);
+    grid.appendChild(card);
   });
 }
 
@@ -48,18 +47,13 @@ function displaySingleProduct() {
   const product = JSON.parse(localStorage.getItem("selectedProduct"));
   if (!product) return;
 
-  const image = document.querySelector(".product-img");
-  const name = document.querySelector("h2");
-  const price = document.querySelector(".product-price");
-  const description = document.querySelector(".product-description");
-
-  if (image) image.src = product.image;
-  if (name) name.textContent = product.name;
-  if (price) price.textContent = product.price;
-  if (description) description.textContent = product.description;
+  document.querySelector(".product-img").src = product.image;
+  document.querySelector("h2").textContent = product.name;
+  document.querySelector(".product-price").textContent = product.price;
+  document.querySelector(".product-description").textContent = product.description;
 }
 
-// Add to Cart
+// Add to cart
 const addToCartBtn = document.getElementById("addToCartBtn");
 if (addToCartBtn) {
   addToCartBtn.addEventListener("click", () => {
@@ -67,7 +61,6 @@ if (addToCartBtn) {
     if (!product) return;
 
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
     const exists = cart.find(item => item.name === product.name);
     if (!exists) {
       cart.push(product);
@@ -79,7 +72,7 @@ if (addToCartBtn) {
   });
 }
 
-// Display cart items
+// Display cart contents
 function displayCart() {
   const cartContainer = document.getElementById("cartItems");
   if (!cartContainer) return;
@@ -92,7 +85,6 @@ function displayCart() {
   }
 
   cartContainer.innerHTML = "";
-
   cart.forEach(item => {
     const div = document.createElement("div");
     div.className = "product-card";
@@ -105,17 +97,11 @@ function displayCart() {
   });
 }
 
-// Auto-run functions based on page
+// Auto-run based on page
 window.onload = () => {
-  if (document.querySelector(".product-grid")) {
-    displayProducts();
-  }
-  if (document.querySelector(".product-detail")) {
-    displaySingleProduct();
-  }
-  if (document.querySelector("#cartItems")) {
-    displayCart();
-  }
+  if (document.querySelector(".product-grid")) displayProducts();
+  if (document.querySelector(".product-detail")) displaySingleProduct();
+  if (document.querySelector("#cartItems")) displayCart();
 
   const searchInput = document.querySelector(".search-box");
   if (searchInput) {
