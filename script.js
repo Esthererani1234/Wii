@@ -44,7 +44,7 @@ function displayProducts() {
 }
 
 // Function to display a single product in product.html
-function displaySingleProduct() {
+function displayProducts(filteredList = products) {
   const product = JSON.parse(localStorage.getItem("selectedProduct"));
   if (!product) return;
 
@@ -67,3 +67,14 @@ window.onload = () => {
     displaySingleProduct();
   }
 };
+const searchInput = document.querySelector(".search-box");
+
+if (searchInput) {
+  searchInput.addEventListener("input", () => {
+    const keyword = searchInput.value.toLowerCase();
+    const filtered = products.filter(product =>
+      product.name.toLowerCase().includes(keyword)
+    );
+    displayProducts(filtered);
+  });
+}
