@@ -1,45 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>WorkedIn</title>
+  <meta charset="UTF-8">
+  <title>WorkedIn Marketplace</title>
+  <link rel="stylesheet" href="style.css">
   <script type="module" src="firebase.js"></script>
 </head>
 <body>
-  <h1>Welcome to WorkedIn</h1>
+  <header class="main-header">
+    <h1>WorkedIn</h1>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+    </nav>
+  </header>
 
-  <div id="auth-buttons">
-    <a href="signup.html"><button>Sign Up</button></a>
-    <a href="login.html"><button>Log In</button></a>
-  </div>
+  <main>
+    <section class="hero">
+      <h2>Welcome to WorkedIn</h2>
+      <p>Shop trending products with fast delivery!</p>
+      <input type="text" placeholder="Search for products..." class="search-box">
+    </section>
 
-  <div id="logout-container" style="display: none;">
-    <p>You are logged in!</p>
-    <button onclick="logout()">Log Out</button>
-  </div>
-
-  <script type="module">
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-    const auth = getAuth();
-
-    function logout() {
-      signOut(auth).then(() => {
-        alert("Logged out");
-        window.location.href = "login.html";
-      });
-    }
-
-    window.logout = logout;
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        document.getElementById("auth-buttons").style.display = "none";
-        document.getElementById("logout-container").style.display = "block";
-      } else {
-        document.getElementById("auth-buttons").style.display = "block";
-        document.getElementById("logout-container").style.display = "none";
-      }
-    });
-  </script>
+    <section class="products">
+      <h2>Featured Products</h2>
+      <div class="product-grid">
+        <div class="product-card">
+          <img src="https://via.placeholder.com/150" alt="Product 1">
+          <h3>Product Name</h3>
+          <p>$19.99</p>
+        </div>
+        <div class="product-card">
+          <img src="https://via.placeholder.com/150" alt="Product 2">
+          <h3>Product Name</h3>
+          <p>$24.99</p>
+        </div>
+        <div class="product-card">
+          <img src="https://via.placeholder.com/150" alt="Product 3">
+          <h3>Product Name</h3>
+          <p>$12.99</p>
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
