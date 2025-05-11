@@ -4,30 +4,30 @@ const products = [
     name: "Wireless Earbuds",
     price: "$19.99",
     image: "https://via.placeholder.com/150",
-    description: "These are sample Wireless Earbuds. We'll load real descriptions later."
+    description: "These are sample Wireless Earbuds with high-quality sound and sleek design."
   },
   {
     name: "Smart Watch",
     price: "$24.99",
     image: "https://via.placeholder.com/150",
-    description: "Sample Smart Watch. Stylish and functional."
+    description: "A stylish Smart Watch with fitness tracking and message notifications."
   },
   {
     name: "Bluetooth Speaker",
     price: "$29.99",
     image: "https://via.placeholder.com/150",
-    description: "Sample Bluetooth Speaker. Crisp sound and deep bass."
+    description: "Portable Bluetooth speaker with powerful bass and long battery life."
   }
 ];
 
-// Function to render products to the homepage
+// Function to render products to the product grid
 function displayProducts() {
   const productGrid = document.querySelector(".product-grid");
   if (!productGrid) return;
 
   productGrid.innerHTML = "";
 
-  products.forEach(product => {
+  products.forEach((product, index) => {
     const card = document.createElement("div");
     card.className = "product-card";
     card.innerHTML = `
@@ -35,34 +35,35 @@ function displayProducts() {
       <h3>${product.name}</h3>
       <p>${product.price}</p>
     `;
-    card.onclick = () => {
+    card.addEventListener("click", () => {
       localStorage.setItem("selectedProduct", JSON.stringify(product));
       window.location.href = "product.html";
-    };
+    });
     productGrid.appendChild(card);
   });
 }
 
-// Function to show selected product on product.html
-function showProductDetail() {
+// Function to display a single product in product.html
+function displaySingleProduct() {
   const product = JSON.parse(localStorage.getItem("selectedProduct"));
   if (!product) return;
 
-  const detailBox = document.querySelector(".product-box");
-  if (detailBox) {
-    detailBox.querySelector(".product-img").src = product.image;
-    detailBox.querySelector(".product-img").alt = product.name;
-    detailBox.querySelector(".product-info h2").textContent = product.name;
-    detailBox.querySelector(".product-price").textContent = product.price;
-    detailBox.querySelector(".product-description").textContent = product.description;
-  }
+  const image = document.querySelector(".product-img");
+  const name = document.querySelector(".product-info h2");
+  const price = document.querySelector(".product-price");
+  const description = document.querySelector(".product-description");
+
+  if (image) image.src = product.image;
+  if (name) name.textContent = product.name;
+  if (price) price.textContent = product.price;
+  if (description) description.textContent = product.description;
 }
 
-// Auto-run based on page
+// Detect which page we're on
 window.onload = () => {
   if (document.querySelector(".product-grid")) {
     displayProducts();
   } else if (document.querySelector(".product-detail")) {
-    showProductDetail();
+    displaySingleProduct();
   }
 };
