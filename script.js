@@ -1,14 +1,38 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const searchBox = document.querySelector(".search-box");
-  const productCards = document.querySelectorAll(".product-card");
+// Sample product data (placeholder until real AliExpress data is integrated)
+const products = [
+  {
+    name: "Wireless Earbuds",
+    price: "$19.99",
+    image: "https://via.placeholder.com/150"
+  },
+  {
+    name: "Smart Watch",
+    price: "$24.99",
+    image: "https://via.placeholder.com/150"
+  },
+  {
+    name: "Bluetooth Speaker",
+    price: "$29.99",
+    image: "https://via.placeholder.com/150"
+  }
+];
 
-  searchBox.addEventListener("input", () => {
-    const query = searchBox.value.toLowerCase();
+// Function to render products to the product grid
+function displayProducts() {
+  const productGrid = document.querySelector(".product-grid");
+  productGrid.innerHTML = ""; // Clear previous content
 
-    productCards.forEach((card) => {
-      const productName = card.querySelector("h3").innerText.toLowerCase();
-      const productVisible = productName.includes(query);
-      card.style.display = productVisible ? "block" : "none";
-    });
+  products.forEach(product => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+    card.innerHTML = `
+      <img src="${product.image}" alt="${product.name}" />
+      <h3>${product.name}</h3>
+      <p>${product.price}</p>
+    `;
+    productGrid.appendChild(card);
   });
-});
+}
+
+// Call the function when the page loads
+window.onload = displayProducts;
