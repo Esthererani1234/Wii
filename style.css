@@ -1,173 +1,123 @@
-/* Reset and basics */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* Reset & Base */
+* {
   margin: 0;
   padding: 0;
-  background: #f8f9fb;
-  color: #333;
+  box-sizing: border-box;
 }
-
-a {
-  text-decoration: none;
-  color: inherit;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f9f9fb;
+  color: #222;
+  line-height: 1.6;
 }
 
 /* Header */
 .main-header {
-  background-color: #2d2dff;
-  padding: 20px;
+  background: #2e3eff;
   color: #fff;
+  padding: 15px 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+.main-header .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 90%;
+  margin: 0 auto;
 }
-
-.main-header .brand-link {
-  font-size: 28px;
-  font-weight: bold;
+.main-header .brand a {
   color: #fff;
+  text-decoration: none;
+  font-size: 26px;
+  font-weight: 700;
 }
-
 .main-header nav a {
-  margin-left: 20px;
   color: #fff;
-  font-weight: 500;
-}
-
-/* Hero section */
-.hero {
-  text-align: center;
-  padding: 50px 20px;
-  background-color: #eaf0ff;
-}
-
-.hero h2 {
-  font-size: 32px;
-  margin-bottom: 10px;
-}
-
-.hero p {
-  margin-bottom: 20px;
-  color: #555;
-}
-
-.search-box {
-  padding: 12px;
-  width: 80%;
-  max-width: 400px;
+  margin-left: 20px;
+  text-decoration: none;
   font-size: 16px;
-  border: 1px solid #aaa;
-  border-radius: 6px;
+}
+.main-header nav a:hover {
+  text-decoration: underline;
 }
 
-/* Product grid */
-.products {
-  padding: 30px 20px;
-}
-
-.products h2 {
+/* Hero Section */
+.hero {
+  background: #eef0ff;
+  padding: 50px 0;
   text-align: center;
-  margin-bottom: 20px;
+}
+.hero .highlight {
+  color: #2e3eff;
+}
+.hero p {
+  margin: 10px 0 20px;
+  font-size: 18px;
+  color: #666;
+}
+.search-box {
+  padding: 12px 20px;
+  width: 60%;
+  max-width: 500px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
 }
 
+/* Products Section */
+.section-title {
+  font-size: 24px;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 600;
+}
 .product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  max-width: 1200px;
-  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
 }
-
 .product-card {
   background: #fff;
-  padding: 15px;
   border-radius: 10px;
+  width: 220px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   text-align: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  transition: transform 0.2s ease;
+  padding: 20px 15px;
+  transition: transform 0.2s;
 }
-
 .product-card:hover {
   transform: translateY(-5px);
 }
-
 .product-card img {
   width: 100%;
-  max-width: 180px;
   height: 180px;
   object-fit: cover;
-  margin-bottom: 12px;
-}
-
-.product-card h3 {
-  font-size: 18px;
-  margin: 10px 0;
-}
-
-.product-card p {
-  font-weight: bold;
-  color: #28a745;
-}
-
-/* Product detail */
-.product-detail {
-  padding: 40px 20px;
-  display: flex;
-  justify-content: center;
-}
-
-.product-box {
-  display: flex;
-  flex-wrap: wrap;
-  background: #fff;
-  padding: 25px;
-  border-radius: 10px;
-  max-width: 900px;
-  width: 100%;
-  gap: 30px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.product-img {
-  width: 100%;
-  max-width: 350px;
   border-radius: 8px;
+  background: #eee;
 }
-
-.product-info {
-  flex: 1;
+.product-card h3 {
+  margin: 15px 0 5px;
+  font-size: 18px;
 }
-
-.product-info h2 {
-  margin-top: 0;
-}
-
-.product-price {
-  font-size: 20px;
-  font-weight: bold;
+.product-card p {
   color: #28a745;
-  margin: 10px 0;
-}
-
-.add-btn {
-  padding: 12px 20px;
   font-size: 16px;
-  background: #2d2dff;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.add-btn:hover {
-  background: #1d1dce;
+  font-weight: bold;
 }
 
 /* Footer */
 .main-footer {
-  background: #2d2dff;
+  background: #2e3eff;
   color: #fff;
-  padding: 15px;
+  padding: 20px 0;
   text-align: center;
-  margin-top: 40px;
+  margin-top: 60px;
+}
+
+/* Utilities */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
