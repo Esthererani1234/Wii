@@ -2,32 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WorkedIn Marketplace</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="main-header">
-    <h1><a href="index.html" class="brand-link">WorkedIn</a></h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="cart.html">Cart</a>
-    </nav>
+    <div class="container">
+      <h1 class="brand"><a href="index.html">WorkedIn</a></h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="cart.html" class="cart-link">Cart</a>
+      </nav>
+    </div>
   </header>
 
-  <section class="hero">
-    <h2>Welcome to WorkedIn</h2>
-    <p>Discover trending items at unbeatable prices</p>
-    <input type="text" class="search-box" placeholder="Search products..." />
-  </section>
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h2>Welcome to <span class="highlight">WorkedIn</span></h2>
+        <p>Discover trending items at unbeatable prices</p>
+        <input type="text" class="search-box" placeholder="Search products..." />
+      </div>
+    </section>
 
-  <section class="products">
-    <h2>Featured Products</h2>
-    <div class="product-grid"></div>
-  </section>
+    <section class="products">
+      <div class="container">
+        <h2 class="section-title">Featured Products</h2>
+        <div class="product-grid"></div>
+      </div>
+    </section>
+  </main>
 
   <footer class="main-footer">
-    <p>&copy; 2025 WorkedIn. All rights reserved.</p>
+    <div class="container">
+      <p>&copy; 2025 WorkedIn. All rights reserved.</p>
+    </div>
   </footer>
 
   <script src="script.js"></script>
