@@ -1,33 +1,32 @@
-// Sample product data
+// Sample product data (can be replaced with real imports later)
 const products = [
   {
     name: "Wireless Earbuds",
     price: "$19.99",
     image: "https://placehold.co/300x300?text=Wireless+Earbuds",
-    description: "These are sample Wireless Earbuds. When we integrate AliExpress later, real descriptions will appear here."
+    description: "Compact Bluetooth earbuds with great sound."
   },
   {
     name: "Smart Watch",
     price: "$24.99",
     image: "https://placehold.co/300x300?text=Smart+Watch",
-    description: "This Smart Watch is a placeholder item. It will be replaced with live data from AliExpress."
+    description: "Track fitness, calls, and notifications on the go."
   },
   {
     name: "Bluetooth Speaker",
     price: "$29.99",
     image: "https://placehold.co/300x300?text=Bluetooth+Speaker",
-    description: "Sample Bluetooth Speaker to demonstrate layout. Actual product details will load here later."
+    description: "Loud portable speaker with deep bass."
   }
 ];
 
-// Display all products on homepage
-function displayProducts(filteredList = products) {
-  const productGrid = document.querySelector(".product-grid");
-  if (!productGrid) return;
+// Display products on homepage
+function displayProducts(filtered = products) {
+  const grid = document.querySelector(".product-grid");
+  if (!grid) return;
 
-  productGrid.innerHTML = "";
-
-  filteredList.forEach(product => {
+  grid.innerHTML = "";
+  filtered.forEach(product => {
     const card = document.createElement("div");
     card.className = "product-card";
     card.innerHTML = `
@@ -39,33 +38,26 @@ function displayProducts(filteredList = products) {
       localStorage.setItem("selectedProduct", JSON.stringify(product));
       window.location.href = "product.html";
     });
-    productGrid.appendChild(card);
+    grid.appendChild(card);
   });
 }
 
-// Display selected product in product.html
+// Show selected product in product.html
 function displaySingleProduct() {
   const product = JSON.parse(localStorage.getItem("selectedProduct"));
   if (!product) return;
 
-  const image = document.querySelector(".product-img");
-  const name = document.querySelector(".product-info h2");
-  const price = document.querySelector(".product-price");
-  const description = document.querySelector(".product-description");
-
-  if (image) image.src = product.image;
-  if (name) name.textContent = product.name;
-  if (price) price.textContent = product.price;
-  if (description) description.textContent = product.description;
+  document.getElementById("productImage").src = product.image;
+  document.getElementById("productName").textContent = product.name;
+  document.getElementById("productPrice").textContent = product.price;
+  document.getElementById("productDescription").textContent = product.description;
 }
 
-// Add to Cart button
+// Add to Cart
 const addToCartBtn = document.getElementById("addToCartBtn");
 if (addToCartBtn) {
   addToCartBtn.addEventListener("click", () => {
     const product = JSON.parse(localStorage.getItem("selectedProduct"));
-    if (!product) return;
-
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     const exists = cart.find(item => item.name === product.name);
 
@@ -74,51 +66,68 @@ if (addToCartBtn) {
       localStorage.setItem("cart", JSON.stringify(cart));
       alert("Added to cart!");
     } else {
-      alert("This item is already in your cart.");
+      alert("Already in cart.");
     }
   });
 }
 
-// Display items in cart.html
+// Display Cart Page
 function displayCart() {
-  const cartContainer = document.getElementById("cartItems");
-  if (!cartContainer) return;
+  const cartGrid = document.getElementById("cartItems");
+  if (!cartGrid) return;
 
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
   if (cart.length === 0) {
-    cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+    cartGrid.innerHTML = "<p>Your cart is empty.</p>";
     return;
   }
 
-  cartContainer.innerHTML = "";
-
-  cart.forEach(item => {
-    const div = document.createElement("div");
-    div.className = "product-card";
-    div.innerHTML = `
+  cartGrid.innerHTML = "";
+  cart.forEach((item, index) => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+    card.innerHTML = `
       <img src="${item.image}" alt="${item.name}" />
       <h3>${item.name}</h3>
       <p>${item.price}</p>
+      <button onclick="removeFromCart(${index})" style="margin-top: 10px; background: red; color: white; border: none; padding: 6px 12px; border-radius: 5px;">Remove</button>
     `;
-    cartContainer.appendChild(div);
+    cartGrid.appendChild(card);
+  });
+
+  const checkout = document.createElement("div");
+  checkout.innerHTML = `
+    <div style="text-align:center; margin-top: 20px;">
+      <a href="checkout.html" style="background: #2d2dff; color: white; padding: 12px 20px; border-radius: 5px; text-decoration: none;">Proceed to Checkout</a>
+    </div>
+  `;
+  cartGrid.appendChild(checkout);
+}
+
+// Remove from cart
+function removeFromCart(index) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  location.reload();
+}
+
+// Search filtering
+const searchInput = document.querySelector(".search-box");
+if (searchInput) {
+  searchInput.addEventListener("input", () => {
+    const keyword = searchInput.value.toLowerCase();
+    const filtered = products.filter(p =>
+      p.name.toLowerCase().includes(keyword)
+    );
+    displayProducts(filtered);
   });
 }
 
 // Auto-load correct functions
 window.onload = () => {
   if (document.querySelector(".product-grid")) displayProducts();
-  if (document.querySelector(".product-detail")) displaySingleProduct();
+  if (document.getElementById("productImage")) displaySingleProduct();
   if (document.getElementById("cartItems")) displayCart();
-
-  const searchInput = document.querySelector(".search-box");
-  if (searchInput) {
-    searchInput.addEventListener("input", () => {
-      const keyword = searchInput.value.toLowerCase();
-      const filtered = products.filter(p =>
-        p.name.toLowerCase().includes(keyword)
-      );
-      displayProducts(filtered);
-    });
-  }
 };
