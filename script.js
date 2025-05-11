@@ -1,31 +1,31 @@
-// Sample product data (placeholder until real AliExpress data is integrated)
+// Sample product data
 const products = [
   {
     name: "Wireless Earbuds",
     price: "$19.99",
-    image: "https://via.placeholder.com/150",
+    image: "https://via.placeholder.com/300?text=Wireless+Earbuds",
     description: "These are sample Wireless Earbuds. When we integrate AliExpress later, real descriptions will appear here."
   },
   {
     name: "Smart Watch",
     price: "$24.99",
-    image: "https://via.placeholder.com/150",
+    image: "https://via.placeholder.com/300?text=Smart+Watch",
     description: "This Smart Watch is a placeholder item. It will be replaced with live data from AliExpress."
   },
   {
     name: "Bluetooth Speaker",
     price: "$29.99",
-    image: "https://via.placeholder.com/150",
-    description: "Sample Bluetooth Speaker to demonstrate layout. Actual product details will load soon."
+    image: "https://via.placeholder.com/300?text=Bluetooth+Speaker",
+    description: "Sample Bluetooth Speaker to demonstrate layout. Actual product details will load later."
   }
 ];
 
-// Function to display all products on index.html
+// Display all products on homepage
 function displayProducts(filteredList = products) {
   const productGrid = document.querySelector(".product-grid");
   if (!productGrid) return;
 
-  productGrid.innerHTML = ""; // Clear previous items
+  productGrid.innerHTML = "";
 
   filteredList.forEach(product => {
     const card = document.createElement("div");
@@ -45,7 +45,7 @@ function displayProducts(filteredList = products) {
   });
 }
 
-// Function to show single product details in product.html
+// Display one product on product.html
 function displaySingleProduct() {
   const product = JSON.parse(localStorage.getItem("selectedProduct"));
   if (!product) return;
@@ -61,7 +61,7 @@ function displaySingleProduct() {
   if (description) description.textContent = product.description;
 }
 
-// Auto-detect which page we’re on
+// Run correct logic depending on page
 window.onload = () => {
   if (document.querySelector(".product-grid")) {
     displayProducts();
@@ -69,7 +69,6 @@ window.onload = () => {
     displaySingleProduct();
   }
 
-  // Live product search on homepage
   const searchInput = document.querySelector(".search-box");
   if (searchInput) {
     searchInput.addEventListener("input", () => {
@@ -80,48 +79,48 @@ window.onload = () => {
       displayProducts(filtered);
     });
   }
-};
-const addToCartBtn = document.getElementById("addToCartBtn");
 
-if (addToCartBtn) {
-  addToCartBtn.addEventListener("click", () => {
-    const product = JSON.parse(localStorage.getItem("selectedProduct"));
-    if (!product) return;
+  // Add to Cart button logic
+  const addToCartBtn = document.getElementById("addToCartBtn");
+  if (addToCartBtn) {
+    addToCartBtn.addEventListener("click", () => {
+      const product = JSON.parse(localStorage.getItem("selectedProduct"));
+      if (!product) return;
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    const exists = cart.find(item => item.name === product.name);
-    if (!exists) {
-      cart.push(product);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      alert("Added to cart!");
-    } else {
-      alert("This item is already in your cart.");
-    }
-  });
-}
-// Load and display cart items in cart.html
-function displayCart() {
-  const cartContainer = document.getElementById("cartItems");
-  if (!cartContainer) return;
-
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  if (cart.length === 0) {
-    cartContainer.innerHTML = "<p>Your cart is empty.</p>";
-    return;
+      const exists = cart.find(item => item.name === product.name);
+      if (!exists) {
+        cart.push(product);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert("Added to cart!");
+      } else {
+        alert("This item is already in your cart.");
+      }
+    });
   }
 
-  cartContainer.innerHTML = "";
-  cart.forEach(item => {
-    const div = document.createElement("div");
-    div.className = "product-card";
-    div.innerHTML = `
-      <img src="${item.image}" alt="${item.name}" />
-      <h3>${item.name}</h3>
-      <p>${item.price}</p>
-    `;
-    cartContainer.appendChild(div);
-  });
-}
-if (document.querySelector("#cartItems")) displayCart();
+  // Display cart contents
+  const cartItemsContainer = document.getElementById("cartItems");
+  if (cartItemsContainer) {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if (cart.length === 0) {
+      cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+      return;
+    }
+
+    cartItemsContainer.innerHTML = "";
+
+    cart.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "product-card";
+      div.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" />
+        <h3>${item.name}</h3>
+        <p>${item.price}</p>
+      `;
+      cartItemsContainer.appendChild(div);
+    });
+  }
+};
