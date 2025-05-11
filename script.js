@@ -124,3 +124,4 @@ function displayCart() {
     cartContainer.appendChild(div);
   });
 }
+if (document.querySelector("#cartItems")) displayCart();
