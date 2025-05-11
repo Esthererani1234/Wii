@@ -1,15 +1,14 @@
-// script.js
-
 document.addEventListener("DOMContentLoaded", () => {
   const searchBox = document.querySelector(".search-box");
+  const productCards = document.querySelectorAll(".product-card");
 
-  if (searchBox) {
-    searchBox.addEventListener("input", (e) => {
-      const query = e.target.value.toLowerCase();
-      // In the future, filter real products here
-      console.log("Searching for:", query);
+  searchBox.addEventListener("input", () => {
+    const query = searchBox.value.toLowerCase();
+
+    productCards.forEach((card) => {
+      const productName = card.querySelector("h3").innerText.toLowerCase();
+      const productVisible = productName.includes(query);
+      card.style.display = productVisible ? "block" : "none";
     });
-  }
-
-  console.log("Homepage script loaded");
+  });
 });
