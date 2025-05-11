@@ -3,20 +3,20 @@ const products = [
   {
     name: "Wireless Earbuds",
     price: "$19.99",
-    image: "https://via.placeholder.com/300.png?text=Wireless+Earbuds",
+    image: "https://placehold.co/300x300?text=Wireless+Earbuds",
     description: "These are sample Wireless Earbuds. When we integrate AliExpress later, real descriptions will appear here."
   },
   {
     name: "Smart Watch",
     price: "$24.99",
-    image: "https://via.placeholder.com/300.png?text=Smart+Watch",
-    description: "This Smart Watch is a placeholder item. It will be replaced with live data from AliExpress."
+    image: "https://placehold.co/300x300?text=Smart+Watch",
+    description: "This Smart Watch is a placeholder item. It will be replaced with live data from suppliers."
   },
   {
     name: "Bluetooth Speaker",
     price: "$29.99",
-    image: "https://via.placeholder.com/300.png?text=Bluetooth+Speaker",
-    description: "Sample Bluetooth Speaker to demonstrate layout. Actual product details will load later."
+    image: "https://placehold.co/300x300?text=Bluetooth+Speaker",
+    description: "Sample Bluetooth Speaker to demonstrate layout. Actual product details will load in the future."
   }
 ];
 
