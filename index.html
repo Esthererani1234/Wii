@@ -3,41 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WorkedIn Marketplace</title>
+  <title>WorkedIn – Marketplace</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
   <header class="main-header">
-    <div class="container">
-      <h1 class="brand"><a href="index.html">WorkedIn</a></h1>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="cart.html" class="cart-link">Cart</a>
-      </nav>
-    </div>
+    <div class="logo" onclick="location.href='index.html'">Worked<span class="highlight">In</span></div>
+    <nav class="main-nav">
+      <a href="index.html"><i class="fa fa-home"></i><span>Home</span></a>
+      <a href="dashboard.html"><i class="fa fa-th"></i><span>Dashboard</span></a>
+      <a href="cart.html"><i class="fa fa-shopping-cart"></i><span>Cart</span></a>
+      <a href="profile.html"><i class="fa fa-user"></i><span>Profile</span></a>
+    </nav>
   </header>
 
-  <main>
+  <main class="homepage">
     <section class="hero">
-      <div class="container">
-        <h2>Welcome to <span class="highlight">WorkedIn</span></h2>
-        <p>Discover trending items at unbeatable prices</p>
-        <input type="text" class="search-box" placeholder="Search products..." />
-      </div>
+      <h1>Welcome to <span class="highlight">WorkedIn</span></h1>
+      <p>Explore trending deals and unbeatable prices</p>
+      <input type="text" class="search-box" placeholder="Search for products..." />
     </section>
 
-    <section class="products">
-      <div class="container">
-        <h2 class="section-title">Featured Products</h2>
-        <div class="product-grid"></div>
-      </div>
+    <section class="products-section">
+      <h2>Featured Products</h2>
+      <div class="product-grid"></div>
     </section>
   </main>
 
   <footer class="main-footer">
-    <div class="container">
-      <p>&copy; 2025 WorkedIn. All rights reserved.</p>
+    <p>&copy; 2025 WorkedIn. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="returns.html">Returns</a>
+      <a href="disputes.html">Dispute Center</a>
     </div>
   </footer>
 
