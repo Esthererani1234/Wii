@@ -2,32 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Product – WorkedIn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Details</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </head>
 <body>
-  <header class="main-header">
-    <div class="logo" onclick="location.href='index.html'">Worked<span class="highlight">In</span></div>
-    <nav class="main-nav">
-      <a href="index.html"><i class="fa fa-home"></i><span>Home</span></a>
-      <a href="dashboard.html"><i class="fa fa-th"></i><span>Dashboard</span></a>
-      <a href="cart.html"><i class="fa fa-shopping-cart"></i><span>Cart</span></a>
-      <a href="profile.html"><i class="fa fa-user"></i><span>Profile</span></a>
-    </nav>
+  <header class="header">
+    <div class="container header-content">
+      <h1 class="logo"><a href="index.html">Worked<span>In</span></a></h1>
+      <nav class="nav-icons">
+        <a href="dashboard.html"><i class="fas fa-user"></i></a>
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+      </nav>
+    </div>
   </header>
 
-  <main class="container" style="padding: 40px 20px;">
-    <div class="product-card" style="max-width: 400px; margin: auto;">
+  <main class="main-content">
+    <div class="product-detail">
       <img id="productImage" src="" alt="Product Image" />
-      <h3 id="productName"></h3>
+      <h2 id="productName"></h2>
       <p id="productPrice"></p>
-      <p id="productDescription" style="color: #555;"></p>
-      <button id="addToCartBtn" style="margin-top: 12px; padding: 12px 20px; background: #2d2dff; color: white; border: none; border-radius: 6px; font-size: 16px;">Add to Cart</button>
+      <p id="productDescription"></p>
+      <button id="addToCartBtn">Add to Cart</button>
+      <p><a href="index.html">← Back to Home</a></p>
     </div>
   </main>
 
-  <footer class="main-footer">
+  <footer class="footer">
     <p>&copy; 2025 WorkedIn. All rights reserved.</p>
   </footer>
 
