@@ -3,27 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Cart</title>
+  <title>Your Cart - WorkedIn</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
   <header class="header">
     <div class="container header-content">
       <h1 class="logo"><a href="index.html">Worked<span>In</span></a></h1>
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search products..." />
+        <i class="fas fa-search search-icon"></i>
+      </div>
       <nav class="nav-icons">
-        <a href="dashboard.html"><i class="fas fa-user"></i></a>
-        <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+        <a href="profile.html"><i class="fas fa-user"></i></a>
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cart-count">0</span></a>
       </nav>
     </div>
   </header>
 
   <main class="main-content">
-    <h2>Your Shopping Cart</h2>
-    <div id="cartItems" class="product-grid"></div>
-    <div id="cartTotal" class="cart-total"></div>
-    <button class="checkout-btn">Proceed to Checkout</button>
-    <p><a href="index.html">← Continue Shopping</a></p>
+    <section class="cart-section">
+      <h2>Your Shopping Cart</h2>
+      <div id="cartItems" class="cart-items"></div>
+
+      <div class="promo-checkout">
+        <div class="promo-code">
+          <input type="text" placeholder="Promo code" id="promoInput" />
+          <button onclick="applyPromo()">Apply</button>
+        </div>
+        <div class="checkout-summary">
+          <p id="estimatedDelivery">Estimated delivery: 7–13 days</p>
+          <p>Total: <span id="cartTotal">$0.00</span></p>
+          <button class="checkout-button">Proceed to Checkout</button>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
