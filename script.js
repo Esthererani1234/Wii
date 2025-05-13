@@ -1,122 +1,58 @@
-// Sample product data (to be replaced with AliExpress API data later)
-const products = [
-  {
-    name: "Wireless Earbuds",
-    price: "$19.99",
-    image: "https://placehold.co/300x300?text=Wireless+Earbuds",
-    description: "These are sample Wireless Earbuds. When we integrate AliExpress later, real details will appear."
-  },
-  {
-    name: "Smart Watch",
-    price: "$24.99",
-    image: "https://placehold.co/300x300?text=Smart+Watch",
-    description: "This Smart Watch is a placeholder item. Real data will come from AliExpress."
-  },
-  {
-    name: "Bluetooth Speaker",
-    price: "$29.99",
-    image: "https://placehold.co/300x300?text=Bluetooth+Speaker",
-    description: "Sample Bluetooth Speaker used for layout purposes."
-  }
-];
+document.addEventListener("DOMContentLoaded", () => {
+  const productGrid = document.querySelector(".product-grid");
 
-// Render products on homepage
-function displayProducts(filtered = products) {
-  const grid = document.querySelector(".product-grid");
-  if (!grid) return;
-  grid.innerHTML = "";
+  const demoProducts = [
+    {
+      id: 1,
+      name: "Wireless Earbuds",
+      price: "$19.99",
+      image: "https://via.placeholder.com/300x300.png?text=Earbuds"
+    },
+    {
+      id: 2,
+      name: "Smart Watch",
+      price: "$29.99",
+      image: "https://via.placeholder.com/300x300.png?text=Smart+Watch"
+    },
+    {
+      id: 3,
+      name: "Phone Stand",
+      price: "$7.49",
+      image: "https://via.placeholder.com/300x300.png?text=Phone+Stand"
+    },
+    {
+      id: 4,
+      name: "Mini Humidifier",
+      price: "$14.99",
+      image: "https://via.placeholder.com/300x300.png?text=Humidifier"
+    },
+    {
+      id: 5,
+      name: "LED Desk Lamp",
+      price: "$23.99",
+      image: "https://via.placeholder.com/300x300.png?text=Desk+Lamp"
+    },
+    {
+      id: 6,
+      name: "Fitness Tracker",
+      price: "$34.99",
+      image: "https://via.placeholder.com/300x300.png?text=Fitness+Tracker"
+    }
+  ];
 
-  filtered.forEach(product => {
-    const div = document.createElement("div");
-    div.className = "product-card";
-    div.innerHTML = `
-      <img src="${product.image}" alt="${product.name}">
+  demoProducts.forEach(product => {
+    const card = document.createElement("div");
+    card.classList.add("product-card");
+    card.innerHTML = `
+      <img src="${product.image}" alt="${product.name}" />
       <h3>${product.name}</h3>
       <p>${product.price}</p>
-      <button onclick="viewProduct('${product.name}')">View</button>
+      <button onclick="addToCart(${product.id})">Add to Cart</button>
     `;
-    grid.appendChild(div);
+    productGrid.appendChild(card);
   });
+});
+
+function addToCart(productId) {
+  alert("Product " + productId + " added to cart!");
 }
-
-// Store product to view in localStorage
-function viewProduct(name) {
-  const product = products.find(p => p.name === name);
-  if (product) {
-    localStorage.setItem("selectedProduct", JSON.stringify(product));
-    window.location.href = "product.html";
-  }
-}
-
-// Display product on product.html
-function displayProductDetails() {
-  const product = JSON.parse(localStorage.getItem("selectedProduct"));
-  if (!product) return;
-
-  const container = document.querySelector(".product-detail");
-  if (!container) return;
-
-  container.innerHTML = `
-    <img src="${product.image}" alt="${product.name}">
-    <h2>${product.name}</h2>
-    <p class="price">${product.price}</p>
-    <p class="description">${product.description}</p>
-    <button onclick="addToCart()">Add to Cart</button>
-    <br><br>
-    <a href="index.html">← Back to Home</a>
-  `;
-}
-
-// Add product to cart
-function addToCart() {
-  const product = JSON.parse(localStorage.getItem("selectedProduct"));
-  if (!product) return;
-
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const exists = cart.find(item => item.name === product.name);
-  if (!exists) {
-    cart.push(product);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Added to cart!");
-  } else {
-    alert("Item already in cart.");
-  }
-}
-
-// Load and show cart items
-function displayCart() {
-  const container = document.getElementById("cartItems");
-  if (!container) return;
-
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  if (cart.length === 0) {
-    container.innerHTML = "<p>Your cart is empty.</p>";
-    return;
-  }
-
-  container.innerHTML = "";
-  cart.forEach((item, index) => {
-    const div = document.createElement("div");
-    div.className = "product-card";
-    div.innerHTML = `
-      <img src="${item.image}" alt="${item.name}">
-      <h3>${item.name}</h3>
-      <p>${item.price}</p>
-      <button onclick="removeFromCart(${index})">Remove</button>
-    `;
-    container.appendChild(div);
-  });
-}
-
-// Remove item by index
-function removeFromCart(index) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.splice(index, 1);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  displayCart();
-}
-
-// Init
-if (document.querySelector(".product-grid")) displayProducts();
-if (document.querySelector(".product-detail")) displayProductDetails();
-if (document.querySelector("#cartItems")) displayCart();
