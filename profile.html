@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Profile | WorkedIn</title>
+  <title>Your Account | WorkedIn</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -20,48 +20,46 @@
     </div>
   </header>
 
-  <section class="profile">
-    <h2>Welcome back!</h2>
-    <div class="profile-container">
-      <div class="profile-section">
+  <main class="profile-page">
+    <h2>Welcome to Your Account</h2>
+    <div class="profile-sections">
+      <div class="profile-box">
         <h3>Your Orders</h3>
-        <p>No recent orders. Once you place an order, it will appear here.</p>
+        <p>View your order history and track shipments.</p>
+        <button onclick="alert('Orders not implemented yet.')">View Orders</button>
       </div>
-
-      <div class="profile-section">
-        <h3>Your Wishlist</h3>
-        <p>Your favorite items will show up here.</p>
+      <div class="profile-box">
+        <h3>Wishlist</h3>
+        <p>Manage items you’ve saved for later.</p>
+        <button onclick="alert('Wishlist coming soon.')">Go to Wishlist</button>
       </div>
-
-      <div class="profile-section">
-        <h3>Messages</h3>
-        <p>All your messages and updates will appear here.</p>
+      <div class="profile-box">
+        <h3>Addresses</h3>
+        <p>View and update your saved shipping addresses.</p>
+        <button onclick="alert('Address management not implemented.')">Edit Addresses</button>
       </div>
-
-      <div class="profile-section">
-        <h3>Customer Support</h3>
-        <p>Need help? Open a support case and track your resolutions here.</p>
+      <div class="profile-box">
+        <h3>Dispute Center</h3>
+        <p>Need help with an order? Open a support case.</p>
+        <button onclick="alert('Dispute center coming soon.')">Open Dispute</button>
       </div>
-
-      <div class="profile-section">
-        <h3>Account Settings</h3>
-        <p>Edit your info, saved addresses, and more (coming soon).</p>
+      <div class="profile-box">
+        <h3>Logout</h3>
+        <p>Securely log out of your account.</p>
+        <button onclick="alert('Logout functionality will be added later.')">Log Out</button>
       </div>
     </div>
-  </section>
+  </main>
 
   <footer>
     <p>WorkedIn — All rights reserved.</p>
   </footer>
 
   <script>
-    function updateCartCounter() {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const count = cart.length;
-      document.getElementById("cart-count").textContent = count;
-    }
-
-    window.onload = updateCartCounter;
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const count = cart.length;
+    const counter = document.getElementById("cart-count");
+    if (counter) counter.textContent = count;
   </script>
 </body>
 </html>
