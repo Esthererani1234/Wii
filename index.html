@@ -2,52 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>WorkedIn Marketplace</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://kit.fontawesome.com/a2e0e6adfe.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-content">
+  <header class="site-header">
+    <div class="container nav-bar">
       <h1 class="logo"><a href="index.html">Worked<span>In</span></a></h1>
-
-      <div class="search-container">
-        <input type="text" class="search-input" placeholder="Search products..." />
-        <i class="fas fa-search search-icon"></i>
+      <div class="search-bar">
+        <input type="text" placeholder="Search products...">
+        <button><i class="fas fa-search"></i></button>
       </div>
-
-      <nav class="nav-icons">
-        <a href="dashboard.html"><i class="fas fa-user"></i></a>
-        <a href="cart.html">
+      <div class="nav-icons">
+        <a href="profile.html"><i class="fas fa-user"></i></a>
+        <a href="cart.html" class="cart-link">
           <i class="fas fa-shopping-cart"></i>
           <span class="cart-count">0</span>
         </a>
-      </nav>
+      </div>
     </div>
   </header>
 
-  <main class="main-content">
-    <section class="hero-section">
-      <h2>Discover Top Finds</h2>
-      <p>Curated deals and fast shipping — shop smarter with WorkedIn</p>
-      <a href="#" class="btn-primary">Shop Now</a>
+  <main class="main-section">
+    <section class="hero-banner">
+      <h2>Shop Smart. Live Better.</h2>
+      <p>Top-rated deals delivered fast from trusted suppliers.</p>
     </section>
 
-    <div class="category-filters">
-      <button class="category-btn">Popular</button>
-      <button class="category-btn">Fast Arrival</button>
-      <button class="category-btn">Budget Picks</button>
-      <button class="category-btn">Staff Choice</button>
-    </div>
-
-    <section class="products-section">
+    <section class="product-showcase">
       <h3>Featured Products</h3>
-      <div class="product-grid"></div>
+      <div class="product-grid" id="productGrid"></div>
     </section>
   </main>
 
-  <footer class="footer">
+  <footer class="site-footer">
     <p>&copy; 2025 WorkedIn. All rights reserved.</p>
   </footer>
 
