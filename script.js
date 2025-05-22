@@ -1,94 +1,80 @@
-// Dummy product data
-const sampleProducts = [
+// script.js
+
+// Sample products
+const products = [
   {
     id: 1,
     name: "Mini Portable Fan",
-    price: "$9.99",
-    image: "https://via.placeholder.com/200x200.png?text=Fan"
+    price: 9.99,
+    image: "https://via.placeholder.com/150?text=Fan"
   },
   {
     id: 2,
     name: "Wireless Earbuds",
-    price: "$24.95",
-    image: "https://via.placeholder.com/200x200.png?text=Earbuds"
+    price: 24.95,
+    image: "https://via.placeholder.com/150?text=Earbuds"
   },
   {
     id: 3,
     name: "LED Ring Light",
-    price: "$15.49",
-    image: "https://via.placeholder.com/200x200.png?text=Ring+Light"
+    price: 15.49,
+    image: "https://via.placeholder.com/150?text=Ring+Light"
   },
   {
     id: 4,
     name: "Smart Watch Band",
-    price: "$6.25",
-    image: "https://via.placeholder.com/200x200.png?text=Watch+Band"
+    price: 6.25,
+    image: "https://via.placeholder.com/150?text=Watch+Band"
   }
 ];
 
-// Load product cards on homepage
-function renderProducts() {
-  const productList = document.getElementById("productList");
-  if (!productList) return;
+// Render product cards
+function displayProducts() {
+  const container = document.querySelector(".product-grid");
+  if (!container) return;
 
-  productList.innerHTML = "";
-
-  sampleProducts.forEach(product => {
-    const div = document.createElement("div");
-    div.classList.add("product-card");
-    div.innerHTML = `
-      <img src="${product.image}" alt="${product.name}">
-      <h4>${product.name}</h4>
-      <p>${product.price}</p>
+  container.innerHTML = "";
+  products.forEach((product) => {
+    const card = document.createElement("div");
+    card.classList.add("product-card");
+    card.innerHTML = `
+      <img src="${product.image}" alt="${product.name}" />
+      <h3>${product.name}</h3>
+      <p>$${product.price.toFixed(2)}</p>
       <button onclick="addToCart(${product.id})">Add to Cart</button>
     `;
-    productList.appendChild(div);
+    container.appendChild(card);
   });
 }
 
-// Cart logic
-function getCart() {
-  return JSON.parse(localStorage.getItem("cart")) || [];
-}
-
-function setCart(cart) {
-  localStorage.setItem("cart", JSON.stringify(cart));
-}
-
-function updateCartCounter() {
-  const cartCount = document.getElementById("cartCount");
-  const cart = getCart();
-  const uniqueItems = cart.length;
-  if (cartCount) cartCount.textContent = uniqueItems;
-}
-
+// Add item to cart
 function addToCart(productId) {
-  const cart = getCart();
-  if (!cart.find(item => item.id === productId)) {
-    const product = sampleProducts.find(p => p.id === productId);
-    cart.push({ id: product.id, name: product.name, qty: 1, price: product.price, image: product.image });
-    setCart(cart);
-    showToast("Added to cart!");
-    updateCartCounter();
-  } else {
-    showToast("Item already in cart!");
-  }
+  let cart = JSON.parse(localStorage.getItem("cart")) || {};
+  cart[productId] = (cart[productId] || 0) + 1;
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount();
+  showToast("Item added to cart");
 }
 
-// Toast logic
-function showToast(msg) {
-  const toast = document.getElementById("toast");
-  if (!toast) return;
-
-  toast.textContent = msg;
-  toast.style.display = "block";
-  setTimeout(() => {
-    toast.style.display = "none";
-  }, 3000);
+// Update cart number
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || {};
+  const count = Object.keys(cart).length;
+  const countSpan = document.querySelector(".cart-count");
+  if (countSpan) countSpan.textContent = count;
 }
 
-// Init
+// Show toast
+function showToast(message) {
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+// Initial load
 document.addEventListener("DOMContentLoaded", () => {
-  renderProducts();
-  updateCartCounter();
+  displayProducts();
+  updateCartCount();
 });
