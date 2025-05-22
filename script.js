@@ -1,116 +1,80 @@
 const products = [
   {
-    name: "Wireless Earbuds",
-    price: "$19.99",
-    image: "https://placehold.co/150x150?text=Wireless+Earbuds"
+    id: 1,
+    name: "Bluetooth Earbuds",
+    price: 14.99,
+    image: "https://via.placeholder.com/300?text=Earbuds"
   },
   {
+    id: 2,
     name: "Smart Watch",
-    price: "$29.99",
-    image: "https://placehold.co/150x150?text=Smart+Watch"
+    price: 29.99,
+    image: "https://via.placeholder.com/300?text=Smart+Watch"
   },
   {
+    id: 3,
+    name: "Wireless Charger",
+    price: 9.99,
+    image: "https://via.placeholder.com/300?text=Wireless+Charger"
+  },
+  {
+    id: 4,
     name: "Phone Stand",
-    price: "$7.49",
-    image: "https://placehold.co/150x150?text=Phone+Stand"
-  },
-  {
-    name: "Mini Humidifier",
-    price: "$14.99",
-    image: "https://placehold.co/150x150?text=Mini+Humidifier"
-  },
-  {
-    name: "LED Desk Lamp",
-    price: "$23.99",
-    image: "https://placehold.co/150x150?text=LED+Desk+Lamp"
-  },
-  {
-    name: "Fitness Tracker",
-    price: "$34.99",
-    image: "https://placehold.co/150x150?text=Fitness+Tracker"
+    price: 4.99,
+    image: "https://via.placeholder.com/300?text=Phone+Stand"
   }
 ];
 
-// Display products on homepage
-function displayProducts(list = products) {
-  const grid = document.querySelector(".product-grid");
-  if (!grid) return;
-  grid.innerHTML = "";
-  list.forEach(product => {
+// Render products on the homepage
+const productGrid = document.getElementById("productGrid");
+if (productGrid) {
+  products.forEach(product => {
     const card = document.createElement("div");
     card.className = "product-card";
     card.innerHTML = `
       <img src="${product.image}" alt="${product.name}">
       <h3>${product.name}</h3>
-      <p>${product.price}</p>
-      <button onclick='addToCart(${JSON.stringify(product)})'>Add to Cart</button>
+      <p>$${product.price.toFixed(2)}</p>
+      <button onclick="addToCart(${product.id})">Add to Cart</button>
     `;
-    grid.appendChild(card);
+    productGrid.appendChild(card);
   });
 }
 
-// Add to cart logic
-function addToCart(product) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const existing = cart.find(item => item.name === product.name);
-  if (existing) {
-    existing.quantity += 1;
+// Add to Cart
+function addToCart(productId) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || {};
+  if (cart[productId]) {
+    cart[productId].qty += 1;
   } else {
-    product.quantity = 1;
-    cart.push(product);
+    const product = products.find(p => p.id === productId);
+    cart[productId] = { ...product, qty: 1 };
   }
   localStorage.setItem("cart", JSON.stringify(cart));
   showToast("Item added to cart");
-  updateCartCount();
+  updateCartCounter();
 }
 
-// Render cart on cart.html
-function renderCart() {
-  const cartContainer = document.getElementById("cartItems");
-  if (!cartContainer) return;
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cartContainer.innerHTML = cart.length === 0
-    ? "<p>Your cart is empty.</p>"
-    : "";
-  let total = 0;
-  cart.forEach(item => {
-    const card = document.createElement("div");
-    card.className = "product-card";
-    card.innerHTML = `
-      <img src="${item.image}" alt="${item.name}">
-      <h3>${item.name}</h3>
-      <p>${item.price}</p>
-      <p>Qty: ${item.quantity}</p>
-    `;
-    cartContainer.appendChild(card);
-    total += parseFloat(item.price.replace("$", "")) * item.quantity;
-  });
-  const totalEl = document.getElementById("totalPrice");
-  if (totalEl) {
-    totalEl.textContent = `Total: $${total.toFixed(2)}`;
-  }
-}
-
-// Update cart count globally
-function updateCartCount() {
-  const countSpan = document.querySelector(".cart-count");
-  if (!countSpan) return;
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  countSpan.textContent = cart.length;
-}
-
-// Toast message
+// Show toast
 function showToast(message) {
   const toast = document.createElement("div");
   toast.className = "toast";
   toast.textContent = message;
   document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 2500);
+  setTimeout(() => toast.remove(), 3000);
 }
 
-// Load functions on page load
+// Update cart count
+function updateCartCounter() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || {};
+  const count = Object.keys(cart).length;
+  const counter = document.querySelector(".cart-count");
+  if (counter) {
+    counter.textContent = count;
+  }
+}
+
+// Initialize cart count on page load
 document.addEventListener("DOMContentLoaded", () => {
-  displayProducts();
-  renderCart();
-  updateCartCount();
+  updateCartCounter();
 });
