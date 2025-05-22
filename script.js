@@ -1,89 +1,90 @@
-// Dummy products (replace later with real imports from AliExpress)
+// Sample products (replace with real ones later)
 const products = [
   {
     id: 1,
-    name: "Wireless Earbuds",
-    price: 19.99,
-    image: "https://via.placeholder.com/300x200?text=Earbuds"
+    name: "Summer Floral Dress",
+    price: 24.99,
+    image: "https://via.placeholder.com/300x300.png?text=Product+1"
   },
   {
     id: 2,
-    name: "Smartwatch",
-    price: 29.99,
-    image: "https://via.placeholder.com/300x200?text=Smartwatch"
+    name: "Men's Graphic Tee",
+    price: 19.99,
+    image: "https://via.placeholder.com/300x300.png?text=Product+2"
   },
   {
     id: 3,
-    name: "LED Desk Lamp",
-    price: 14.99,
-    image: "https://via.placeholder.com/300x200?text=Desk+Lamp"
+    name: "Bluetooth Earbuds",
+    price: 15.99,
+    image: "https://via.placeholder.com/300x300.png?text=Product+3"
   },
   {
     id: 4,
-    name: "USB Wall Charger",
-    price: 9.99,
-    image: "https://via.placeholder.com/300x200?text=Charger"
+    name: "Wireless LED Lamp",
+    price: 12.50,
+    image: "https://via.placeholder.com/300x300.png?text=Product+4"
   }
 ];
 
-function loadProducts() {
-  const grid = document.getElementById("productGrid");
-  if (!grid) return;
-
-  grid.innerHTML = products.map(product => `
-    <div class="product-card">
-      <img src="${product.image}" alt="${product.name}">
-      <div class="product-details">
-        <h4>${product.name}</h4>
-        <p>$${product.price.toFixed(2)}</p>
-        <button onclick="addToCart(${product.id})">Add to Cart</button>
-      </div>
-    </div>
-  `).join('');
+// Load homepage products
+function renderProducts() {
+  const list = document.getElementById("productList");
+  if (!list) return;
+  list.innerHTML = "";
+  products.forEach((p) => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+    card.innerHTML = `
+      <img src="${p.image}" alt="${p.name}" />
+      <h4>${p.name}</h4>
+      <p>$${p.price.toFixed(2)}</p>
+      <button onclick="addToCart(${p.id})">Add to Cart</button>
+    `;
+    list.appendChild(card);
+  });
 }
 
+// Cart Logic
 function getCart() {
-  return JSON.parse(localStorage.getItem('cart')) || [];
+  return JSON.parse(localStorage.getItem("cart")) || [];
 }
 
-function setCart(cart) {
-  localStorage.setItem('cart', JSON.stringify(cart));
-  updateCartCount();
+function saveCart(cart) {
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-function addToCart(id) {
+function updateCartIcon() {
+  const count = getCart().length;
+  const badge = document.getElementById("cartCount");
+  if (badge) badge.innerText = count;
+}
+
+function showToast(message) {
+  const msg = document.createElement("div");
+  msg.innerText = message;
+  msg.style.position = "fixed";
+  msg.style.bottom = "20px";
+  msg.style.left = "50%";
+  msg.style.transform = "translateX(-50%)";
+  msg.style.background = "#00bcd4";
+  msg.style.color = "white";
+  msg.style.padding = "10px 20px";
+  msg.style.borderRadius = "5px";
+  msg.style.boxShadow = "0 2px 10px rgba(0,0,0,0.1)";
+  document.body.appendChild(msg);
+  setTimeout(() => msg.remove(), 2000);
+}
+
+function addToCart(productId) {
   const cart = getCart();
-  const item = cart.find(p => p.id === id);
-
-  if (item) {
-    item.qty += 1;
-  } else {
-    const product = products.find(p => p.id === id);
-    cart.push({ ...product, qty: 1 });
-  }
-
-  setCart(cart);
+  cart.push(productId);
+  saveCart(cart);
+  updateCartIcon();
   showToast("Item added to cart");
 }
 
-function updateCartCount() {
-  const cart = getCart();
-  const count = cart.length;
-  const countEl = document.querySelector(".cart-count");
-  if (countEl) countEl.textContent = count;
-}
-
-function showToast(msg) {
-  const toast = document.getElementById("toast");
-  toast.textContent = msg;
-  toast.classList.add("show");
-  setTimeout(() => {
-    toast.classList.remove("show");
-  }, 2500);
-}
-
-// Run on load
+// Init
 document.addEventListener("DOMContentLoaded", () => {
-  loadProducts();
-  updateCartCount();
+  renderProducts();
+  updateCartIcon();
 });
