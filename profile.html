@@ -3,14 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profile - WorkedIn</title>
+  <title>Your Profile - WorkedIn</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
+
   <header class="header">
     <div class="container header-content">
       <h1 class="logo"><a href="index.html">Worked<span>In</span></a></h1>
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search products..." />
+        <i class="fas fa-search search-icon"></i>
+      </div>
       <nav class="nav-icons">
         <a href="profile.html"><i class="fas fa-user"></i></a>
         <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
@@ -19,23 +24,34 @@
   </header>
 
   <main class="main-content">
-    <section class="profile-section">
-      <h2>My Profile</h2>
-      <div class="profile-card">
-        <p><strong>Name:</strong> John Doe</p>
-        <p><strong>Email:</strong> johndoe@example.com</p>
-        <p><strong>Joined:</strong> January 2024</p>
-      </div>
-
-      <div class="profile-actions">
-        <h3>Account Options</h3>
-        <ul>
-          <li><a href="#">Order History</a></li>
-          <li><a href="#">Track Orders</a></li>
-          <li><a href="#">Messages</a></li>
-          <li><a href="#">Settings</a></li>
-          <li><a href="#">Log Out</a></li>
-        </ul>
+    <section class="profile">
+      <h2>Welcome, [User]</h2>
+      <div class="profile-grid">
+        <div class="profile-card">
+          <i class="fas fa-box"></i>
+          <h3>Your Orders</h3>
+          <p>Track and manage all purchases</p>
+        </div>
+        <div class="profile-card">
+          <i class="fas fa-heart"></i>
+          <h3>Wishlist</h3>
+          <p>Items you’ve saved for later</p>
+        </div>
+        <div class="profile-card">
+          <i class="fas fa-comments"></i>
+          <h3>Messages</h3>
+          <p>Support conversations & updates</p>
+        </div>
+        <div class="profile-card">
+          <i class="fas fa-map-marker-alt"></i>
+          <h3>Addresses</h3>
+          <p>Manage delivery locations</p>
+        </div>
+        <div class="profile-card">
+          <i class="fas fa-life-ring"></i>
+          <h3>Customer Service</h3>
+          <p>Open disputes or ask for help</p>
+        </div>
       </div>
     </section>
   </main>
@@ -43,5 +59,6 @@
   <footer class="footer">
     <p>&copy; 2025 WorkedIn. All rights reserved.</p>
   </footer>
+
 </body>
 </html>
