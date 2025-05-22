@@ -3,47 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Account - WorkedIn</title>
+  <title>My Profile | WorkedIn</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="navbar">
-    <div class="container nav-flex">
-      <h1 class="logo"><a href="index.html">Worked<span>In</span></a></h1>
-      <div class="nav-icons">
-        <a href="profile.html"><i class="fas fa-user"></i></a>
-        <a href="cart.html">
-          <i class="fas fa-shopping-cart"></i>
-          <span class="cart-badge" id="cartCount">0</span>
-        </a>
-      </div>
+    <div class="logo">Worked<span>In</span></div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search products..." />
+      <button>Search</button>
+    </div>
+    <div class="nav-icons">
+      <a href="index.html"><img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Home" width="20" /></a>
+      <a href="cart.html"><img src="https://cdn-icons-png.flaticon.com/512/126/126515.png" alt="Cart" width="20" /><span id="cart-count">0</span></a>
+      <a href="profile.html"><img src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="Profile" width="20" /></a>
     </div>
   </header>
 
-  <section class="container" style="margin-top: 2rem;">
-    <h2>Welcome to Your Dashboard</h2>
-    <div class="profile-box">
-      <ul>
-        <li><a href="#">My Orders</a></li>
-        <li><a href="#">Wishlist</a></li>
-        <li><a href="#">Messages</a></li>
-        <li><a href="#">Track My Orders</a></li>
-        <li><a href="#">Dispute Center</a></li>
-        <li><a href="#">Edit Address</a></li>
-        <li><a href="#">Return Policy</a></li>
-        <li><a href="#">Support & Help</a></li>
-        <li><a href="#">Terms & Privacy</a></li>
-      </ul>
+  <section class="profile">
+    <h2>Welcome back!</h2>
+    <div class="profile-container">
+      <div class="profile-section">
+        <h3>Your Orders</h3>
+        <p>No recent orders. Once you place an order, it will appear here.</p>
+      </div>
+
+      <div class="profile-section">
+        <h3>Your Wishlist</h3>
+        <p>Your favorite items will show up here.</p>
+      </div>
+
+      <div class="profile-section">
+        <h3>Messages</h3>
+        <p>All your messages and updates will appear here.</p>
+      </div>
+
+      <div class="profile-section">
+        <h3>Customer Support</h3>
+        <p>Need help? Open a support case and track your resolutions here.</p>
+      </div>
+
+      <div class="profile-section">
+        <h3>Account Settings</h3>
+        <p>Edit your info, saved addresses, and more (coming soon).</p>
+      </div>
     </div>
   </section>
 
   <footer>
-    <div class="container">
-      <p>&copy; 2025 WorkedIn. All rights reserved.</p>
-    </div>
+    <p>WorkedIn — All rights reserved.</p>
   </footer>
 
-  <script src="https://kit.fontawesome.com/a2e0e6adfe.js" crossorigin="anonymous"></script>
-  <script src="script.js"></script>
+  <script>
+    function updateCartCounter() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const count = cart.length;
+      document.getElementById("cart-count").textContent = count;
+    }
+
+    window.onload = updateCartCounter;
+  </script>
 </body>
 </html>
