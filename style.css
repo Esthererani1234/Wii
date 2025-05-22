@@ -203,3 +203,15 @@ body {
   font-size: 0.9rem;
   border-top: 1px solid #eee;
 }
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #222;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  opacity: 0.95;
+  z-index: 9999;
+}
