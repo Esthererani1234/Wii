@@ -1,97 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cart - Workedin</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Cart | WorkedIn</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <nav class="navbar">
-    <div class="container nav-flex">
-      <div class="logo"><a href="index.html">Worked<span>in</span></a></div>
-      <div class="nav-icons">
-        <a href="index.html">Home</a>
-        <a href="cart.html"><i class="fa fa-shopping-cart"></i><span class="cart-badge" id="cartCount">0</span></a>
-        <a href="profile.html"><i class="fa fa-user"></i></a>
-      </div>
+  <header class="navbar">
+    <div class="logo">Worked<span>In</span></div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search products..." />
+      <button>Search</button>
     </div>
-  </nav>
-
-  <div class="container">
-    <h2 style="margin-top: 2rem;">Your Cart</h2>
-    <div id="cartItems" class="product-grid" style="margin-top: 1rem;"></div>
-
-    <div style="margin-top: 2rem;">
-      <h3>Total: <span id="cartTotal">$0.00</span></h3>
-      <button class="btn" style="margin-top: 1rem;">Proceed to Checkout</button>
+    <div class="nav-icons">
+      <a href="index.html"><img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Home" width="20" /></a>
+      <a href="cart.html"><img src="https://cdn-icons-png.flaticon.com/512/126/126515.png" alt="Cart" width="20" /><span id="cart-count">0</span></a>
+      <a href="profile.html"><img src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="Profile" width="20" /></a>
     </div>
-  </div>
+  </header>
+
+  <section class="products">
+    <h2>Your Cart</h2>
+    <div id="cart-items"></div>
+    <div id="cart-summary" style="display: none; margin-top: 2rem;">
+      <p id="cart-total" style="font-weight: bold; font-size: 1.2rem;"></p>
+      <button style="margin-top: 1rem; padding: 0.6rem 1.2rem; background-color: #0ab5cc; color: white; border: none; border-radius: 20px; cursor: pointer;">Proceed to Checkout</button>
+    </div>
+    <p id="empty-cart-message" style="text-align: center; margin-top: 2rem; color: gray;"></p>
+  </section>
 
   <footer>
-    &copy; 2025 Workedin. All rights reserved.
+    <p>WorkedIn — All rights reserved.</p>
   </footer>
 
   <script>
-    function getCart() {
-      return JSON.parse(localStorage.getItem("cart")) || [];
-    }
+    function displayCartItems() {
+      const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartItemsContainer = document.getElementById("cart-items");
+      const cartTotal = document.getElementById("cart-total");
+      const cartSummary = document.getElementById("cart-summary");
+      const emptyMsg = document.getElementById("empty-cart-message");
 
-    function setCart(cart) {
-      localStorage.setItem("cart", JSON.stringify(cart));
-    }
+      cartItemsContainer.innerHTML = "";
 
-    function updateCartCounter() {
-      const count = document.getElementById("cartCount");
-      const cart = getCart();
-      count.textContent = cart.length;
-    }
-
-    function renderCart() {
-      const cart = getCart();
-      const cartItems = document.getElementById("cartItems");
-      const cartTotal = document.getElementById("cartTotal");
-
-      cartItems.innerHTML = "";
-      let total = 0;
-
-      if (cart.length === 0) {
-        cartItems.innerHTML = "<p>Your cart is empty.</p>";
-        cartTotal.textContent = "$0.00";
+      if (cartItems.length === 0) {
+        emptyMsg.textContent = "Your cart is currently empty.";
+        cartSummary.style.display = "none";
         return;
       }
 
-      cart.forEach(item => {
+      emptyMsg.textContent = "";
+      cartSummary.style.display = "block";
+
+      let total = 0;
+
+      cartItems.forEach(item => {
+        total += item.price * item.quantity;
+
         const div = document.createElement("div");
         div.classList.add("product-card");
+        div.style.marginBottom = "1rem";
         div.innerHTML = `
-          <img src="${item.image}" alt="${item.name}">
-          <h4>${item.name}</h4>
-          <p>${item.price}</p>
-          <button onclick="removeFromCart(${item.id})">Remove</button>
+          <img src="${item.image}" alt="${item.name}" />
+          <h3>${item.name}</h3>
+          <p>$${item.price.toFixed(2)} x ${item.quantity}</p>
+          <p><strong>Total: $${(item.price * item.quantity).toFixed(2)}</strong></p>
+          <button onclick="removeItem('${item.id}')">Remove</button>
         `;
-        cartItems.appendChild(div);
-
-        total += parseFloat(item.price.replace("$", "")) * (item.qty || 1);
+        cartItemsContainer.appendChild(div);
       });
 
-      cartTotal.textContent = `$${total.toFixed(2)}`;
+      cartTotal.textContent = "Subtotal: $" + total.toFixed(2);
     }
 
-    function removeFromCart(id) {
-      let cart = getCart();
-      cart = cart.filter(item => item.id !== id);
-      setCart(cart);
-      renderCart();
+    function removeItem(productId) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart = cart.filter(item => item.id !== productId);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      displayCartItems();
       updateCartCounter();
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      renderCart();
+    function updateCartCounter() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const uniqueCount = cart.length;
+      document.getElementById("cart-count").textContent = uniqueCount;
+    }
+
+    window.onload = function () {
+      displayCartItems();
       updateCartCounter();
-    });
+    };
   </script>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </body>
 </html>
