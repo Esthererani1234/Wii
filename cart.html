@@ -2,37 +2,83 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Your Cart - WorkedIn</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+  <script src="https://kit.fontawesome.com/a2e0e6adfe.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <header class="header">
-    <div class="container header-content">
+  <header class="site-header">
+    <div class="container nav-bar">
       <h1 class="logo"><a href="index.html">Worked<span>In</span></a></h1>
-      <nav class="nav-icons">
-        <a href="dashboard.html"><i class="fas fa-user"></i></a>
-        <a href="cart.html"><i class="fas fa-shopping-cart"></i><span class="cart-count">0</span></a>
-      </nav>
+      <div class="nav-icons">
+        <a href="profile.html"><i class="fas fa-user"></i></a>
+        <a href="cart.html" class="cart-link">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count">0</span>
+        </a>
+      </div>
     </div>
   </header>
 
-  <main class="main-content">
-    <section class="cart-section">
-      <h2>Your Shopping Cart</h2>
-      <div id="cartItems" class="product-grid"></div>
-      <div class="cart-summary">
-        <p id="totalPrice">Total: $0.00</p>
-        <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
-      </div>
-    </section>
+  <main class="container">
+    <h2>Your Shopping Cart</h2>
+    <div id="cartItems" class="product-grid"></div>
+    <div id="cartTotal" style="text-align:right; font-size:18px; margin-top:20px;"></div>
   </main>
 
-  <footer class="footer">
+  <footer class="site-footer">
     <p>&copy; 2025 WorkedIn. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    function updateCartCounter() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || {};
+      const count = Object.keys(cart).length;
+      const counter = document.querySelector(".cart-count");
+      if (counter) {
+        counter.textContent = count;
+      }
+    }
+
+    function renderCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || {};
+      const cartItems = document.getElementById("cartItems");
+      const cartTotal = document.getElementById("cartTotal");
+      cartItems.innerHTML = '';
+      let total = 0;
+
+      Object.values(cart).forEach(item => {
+        const itemEl = document.createElement("div");
+        itemEl.className = "product-card";
+        itemEl.innerHTML = `
+          <img src="${item.image}" alt="${item.name}">
+          <h3>${item.name}</h3>
+          <p>$${item.price.toFixed(2)} x ${item.qty}</p>
+          <p><strong>Total: $${(item.price * item.qty).toFixed(2)}</strong></p>
+          <button onclick="removeItem(${item.id})">Remove</button>
+        `;
+        cartItems.appendChild(itemEl);
+        total += item.price * item.qty;
+      });
+
+      cartTotal.textContent = total > 0
+        ? `Total: $${total.toFixed(2)}`
+        : "Your cart is empty.";
+    }
+
+    function removeItem(id) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || {};
+      delete cart[id];
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+      updateCartCounter();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updateCartCounter();
+      renderCart();
+    });
+  </script>
 </body>
 </html>
