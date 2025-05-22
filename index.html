@@ -3,45 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>WorkedIn Marketplace</title>
+  <title>WorkedIn | Trendy Finds Every Day</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://kit.fontawesome.com/a2e0e6adfe.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav-bar">
-      <h1 class="logo"><a href="index.html">Worked<span>In</span></a></h1>
+  <header class="navbar">
+    <div class="container nav-flex">
+      <h1 class="logo">Worked<span>In</span></h1>
 
-      <div class="search-container">
-        <input type="text" placeholder="Search products..." />
+      <div class="search-wrapper">
+        <input type="text" placeholder="Search trendy finds..." id="searchInput" />
         <button><i class="fas fa-search"></i></button>
       </div>
 
       <div class="nav-icons">
-        <a href="profile.html" title="Profile"><i class="fas fa-user"></i></a>
-        <a href="cart.html" title="Cart">
+        <a href="profile.html"><i class="fas fa-user"></i></a>
+        <a href="cart.html">
           <i class="fas fa-shopping-cart"></i>
-          <span class="cart-count">0</span>
+          <span class="cart-badge" id="cartCount">0</span>
         </a>
       </div>
     </div>
   </header>
 
-  <section class="hero-banner">
+  <section class="hero">
     <div class="container">
-      <h2>Welcome to WorkedIn</h2>
-      <p>Your favorite marketplace for daily deals!</p>
-      <a href="#products" class="hero-btn">Shop Now</a>
+      <h2>Discover Daily Deals</h2>
+      <p>Thousands of fresh styles added every week!</p>
+      <a href="#featured" class="btn-hero">Shop Now</a>
     </div>
   </section>
 
-  <main class="container">
-    <h3>Featured Products</h3>
-    <div class="product-grid" id="productList"></div>
-  </main>
+  <section class="categories">
+    <div class="container">
+      <h3>Top Categories</h3>
+      <div class="category-grid">
+        <div class="category-card">Clothing</div>
+        <div class="category-card">Accessories</div>
+        <div class="category-card">Home</div>
+        <div class="category-card">Beauty</div>
+      </div>
+    </div>
+  </section>
 
-  <footer class="site-footer">
-    <p>&copy; 2025 WorkedIn. All rights reserved.</p>
+  <section class="products" id="featured">
+    <div class="container">
+      <h3>New Arrivals</h3>
+      <div class="product-grid" id="productList"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 WorkedIn. All rights reserved.</p>
+    </div>
   </footer>
 
   <script src="script.js"></script>
