@@ -1,116 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Cart - WorkedIn</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cart - Workedin</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="navbar">
+  <nav class="navbar">
     <div class="container nav-flex">
-      <h1 class="logo"><a href="index.html">Worked<span>In</span></a></h1>
+      <div class="logo"><a href="index.html">Worked<span>in</span></a></div>
       <div class="nav-icons">
-        <a href="profile.html"><i class="fas fa-user"></i></a>
-        <a href="cart.html">
-          <i class="fas fa-shopping-cart"></i>
-          <span class="cart-badge" id="cartCount">0</span>
-        </a>
+        <a href="index.html">Home</a>
+        <a href="cart.html"><i class="fa fa-shopping-cart"></i><span class="cart-badge" id="cartCount">0</span></a>
+        <a href="profile.html"><i class="fa fa-user"></i></a>
       </div>
     </div>
-  </header>
+  </nav>
 
-  <section class="products">
-    <div class="container">
-      <h3>Your Cart</h3>
-      <div id="cartItems" class="product-grid"></div>
-      <div id="cartSummary" style="margin-top: 2rem; font-size: 1.1rem;"></div>
+  <div class="container">
+    <h2 style="margin-top: 2rem;">Your Cart</h2>
+    <div id="cartItems" class="product-grid" style="margin-top: 1rem;"></div>
+
+    <div style="margin-top: 2rem;">
+      <h3>Total: <span id="cartTotal">$0.00</span></h3>
+      <button class="btn" style="margin-top: 1rem;">Proceed to Checkout</button>
     </div>
-  </section>
+  </div>
 
   <footer>
-    <div class="container">
-      <p>&copy; 2025 WorkedIn. All rights reserved.</p>
-    </div>
+    &copy; 2025 Workedin. All rights reserved.
   </footer>
 
-  <script src="https://kit.fontawesome.com/a2e0e6adfe.js" crossorigin="anonymous"></script>
-  <script src="script.js"></script>
   <script>
-    const allProducts = [
-      {
-        id: 1,
-        name: "Summer Floral Dress",
-        price: 24.99,
-        image: "https://via.placeholder.com/300x300.png?text=Product+1"
-      },
-      {
-        id: 2,
-        name: "Men's Graphic Tee",
-        price: 19.99,
-        image: "https://via.placeholder.com/300x300.png?text=Product+2"
-      },
-      {
-        id: 3,
-        name: "Bluetooth Earbuds",
-        price: 15.99,
-        image: "https://via.placeholder.com/300x300.png?text=Product+3"
-      },
-      {
-        id: 4,
-        name: "Wireless LED Lamp",
-        price: 12.50,
-        image: "https://via.placeholder.com/300x300.png?text=Product+4"
-      }
-    ];
+    function getCart() {
+      return JSON.parse(localStorage.getItem("cart")) || [];
+    }
 
-    function renderCartPage() {
-      const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-      const container = document.getElementById("cartItems");
-      const summary = document.getElementById("cartSummary");
-      const countBadge = document.getElementById("cartCount");
+    function setCart(cart) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
 
-      if (countBadge) countBadge.innerText = cartItems.length;
+    function updateCartCounter() {
+      const count = document.getElementById("cartCount");
+      const cart = getCart();
+      count.textContent = cart.length;
+    }
 
-      container.innerHTML = "";
+    function renderCart() {
+      const cart = getCart();
+      const cartItems = document.getElementById("cartItems");
+      const cartTotal = document.getElementById("cartTotal");
+
+      cartItems.innerHTML = "";
       let total = 0;
 
-      if (cartItems.length === 0) {
-        container.innerHTML = "<p>Your cart is empty.</p>";
-        summary.innerHTML = "";
+      if (cart.length === 0) {
+        cartItems.innerHTML = "<p>Your cart is empty.</p>";
+        cartTotal.textContent = "$0.00";
         return;
       }
 
-      cartItems.forEach((id, index) => {
-        const product = allProducts.find((p) => p.id === id);
-        if (!product) return;
-        total += product.price;
-
-        const card = document.createElement("div");
-        card.className = "product-card";
-        card.innerHTML = `
-          <img src="${product.image}" alt="${product.name}" />
-          <h4>${product.name}</h4>
-          <p>$${product.price.toFixed(2)}</p>
-          <button onclick="removeFromCart(${index})">Remove</button>
+      cart.forEach(item => {
+        const div = document.createElement("div");
+        div.classList.add("product-card");
+        div.innerHTML = `
+          <img src="${item.image}" alt="${item.name}">
+          <h4>${item.name}</h4>
+          <p>${item.price}</p>
+          <button onclick="removeFromCart(${item.id})">Remove</button>
         `;
-        container.appendChild(card);
+        cartItems.appendChild(div);
+
+        total += parseFloat(item.price.replace("$", "")) * (item.qty || 1);
       });
 
-      summary.innerHTML = `
-        <strong>Total:</strong> $${total.toFixed(2)}<br/><br/>
-        <a href="#" class="btn-hero">Proceed to Checkout</a>
-      `;
+      cartTotal.textContent = `$${total.toFixed(2)}`;
     }
 
-    function removeFromCart(index) {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      renderCartPage();
+    function removeFromCart(id) {
+      let cart = getCart();
+      cart = cart.filter(item => item.id !== id);
+      setCart(cart);
+      renderCart();
+      updateCartCounter();
     }
 
-    renderCartPage();
+    document.addEventListener("DOMContentLoaded", () => {
+      renderCart();
+      updateCartCounter();
+    });
   </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </body>
 </html>
