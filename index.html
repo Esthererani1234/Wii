@@ -2,55 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>WorkedIn - Smarter Shopping. Better Deals.</title>
-  <link rel="stylesheet" href="style.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WorkedIn Marketplace</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
-
-  <header class="main-header">
-    <div class="container nav-wrapper">
+  <header class="header">
+    <div class="container header-content">
       <h1 class="logo"><a href="index.html">Worked<span>In</span></a></h1>
-      <form class="search-bar">
-        <input type="text" placeholder="Search products..." />
-        <button type="submit"><i class="fas fa-search"></i></button>
-      </form>
+
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search products..." />
+        <i class="fas fa-search search-icon"></i>
+      </div>
+
       <nav class="nav-icons">
-        <a href="profile.html"><i class="fas fa-user"></i></a>
-        <a href="cart.html"><i class="fas fa-shopping-cart"></i><span class="cart-badge">0</span></a>
+        <a href="dashboard.html"><i class="fas fa-user"></i></a>
+        <a href="cart.html">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count">0</span>
+        </a>
       </nav>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-content">
+  <main class="main-content">
+    <section class="hero-section">
       <h2>Discover Top Finds</h2>
       <p>Curated deals and fast shipping — shop smarter with WorkedIn</p>
-      <a href="#products" class="hero-btn">Shop Now</a>
-    </div>
-  </section>
+      <a href="#" class="btn-primary">Shop Now</a>
+    </section>
 
-  <section class="tags">
-    <div class="tag-list">
-      <span class="tag">Popular</span>
-      <span class="tag">Fast Arrival</span>
-      <span class="tag">Budget Picks</span>
-      <span class="tag">Staff Choice</span>
+    <div class="category-filters">
+      <button class="category-btn">Popular</button>
+      <button class="category-btn">Fast Arrival</button>
+      <button class="category-btn">Budget Picks</button>
+      <button class="category-btn">Staff Choice</button>
     </div>
-  </section>
 
-  <main class="container">
-    <h2 class="section-title" id="products">Featured Products</h2>
-    <div class="product-grid">
-      <!-- Products will be injected here via script.js -->
-    </div>
+    <section class="products-section">
+      <h3>Featured Products</h3>
+      <div class="product-grid"></div>
+    </section>
   </main>
 
   <footer class="footer">
-    <div class="container">
-      <p>&copy; 2025 WorkedIn. All rights reserved.</p>
-    </div>
+    <p>&copy; 2025 WorkedIn. All rights reserved.</p>
   </footer>
 
   <script src="script.js"></script>
