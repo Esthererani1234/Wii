@@ -3,21 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>WorkedIn | Trendy Finds Every Day</title>
+  <title>WorkedIn - Shop Smarter</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://kit.fontawesome.com/a2e0e6adfe.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-dyDyz+Z1JPdQjAiC7U70yA4wje7s3vGrjl7bRgDFoyU1M6GJP6XeR3uyI0yA8A9ntGpUjECIE3R8rSMy1cczjA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
   <header class="navbar">
     <div class="container nav-flex">
-      <h1 class="logo">Worked<span>In</span></h1>
-
-      <div class="search-wrapper">
-        <input type="text" placeholder="Search trendy finds..." id="searchInput" />
-        <button><i class="fas fa-search"></i></button>
-      </div>
-
+      <h1 class="logo"><a href="index.html">Worked<span>In</span></a></h1>
       <div class="nav-icons">
+        <a href="products.html"><i class="fas fa-search"></i></a>
         <a href="profile.html"><i class="fas fa-user"></i></a>
         <a href="cart.html">
           <i class="fas fa-shopping-cart"></i>
@@ -29,28 +24,16 @@
 
   <section class="hero">
     <div class="container">
-      <h2>Discover Daily Deals</h2>
-      <p>Thousands of fresh styles added every week!</p>
-      <a href="#featured" class="btn-hero">Shop Now</a>
+      <h2>New Deals Daily</h2>
+      <p>Fresh picks from your favorite categories!</p>
+      <a href="products.html" class="btn">Shop Now</a>
     </div>
   </section>
 
-  <section class="categories">
+  <section class="featured">
     <div class="container">
-      <h3>Top Categories</h3>
-      <div class="category-grid">
-        <div class="category-card">Clothing</div>
-        <div class="category-card">Accessories</div>
-        <div class="category-card">Home</div>
-        <div class="category-card">Beauty</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="products" id="featured">
-    <div class="container">
-      <h3>New Arrivals</h3>
-      <div class="product-grid" id="productList"></div>
+      <h3>Staff Picks</h3>
+      <div id="productList" class="product-grid"></div>
     </div>
   </section>
 
@@ -60,6 +43,7 @@
     </div>
   </footer>
 
+  <div id="toast" class="toast">Added to cart!</div>
   <script src="script.js"></script>
 </body>
 </html>
