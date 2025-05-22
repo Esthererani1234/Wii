@@ -2,48 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>WorkedIn - Shop Smarter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WorkedIn Marketplace</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-dyDyz+Z1JPdQjAiC7U70yA4wje7s3vGrjl7bRgDFoyU1M6GJP6XeR3uyI0yA8A9ntGpUjECIE3R8rSMy1cczjA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
-  <header class="navbar">
+  <nav class="navbar">
     <div class="container nav-flex">
-      <h1 class="logo"><a href="index.html">Worked<span>In</span></a></h1>
+      <div class="logo"><a href="index.html">Worked<span>In</span></a></div>
+      <div class="search-container">
+        <input type="text" placeholder="Search products..." class="search-input" />
+        <i class="fas fa-search search-icon"></i>
+      </div>
       <div class="nav-icons">
-        <a href="products.html"><i class="fas fa-search"></i></a>
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cartCount">0</span></a>
         <a href="profile.html"><i class="fas fa-user"></i></a>
-        <a href="cart.html">
-          <i class="fas fa-shopping-cart"></i>
-          <span class="cart-badge" id="cartCount">0</span>
-        </a>
       </div>
     </div>
-  </header>
+  </nav>
 
   <section class="hero">
-    <div class="container">
-      <h2>New Deals Daily</h2>
-      <p>Fresh picks from your favorite categories!</p>
-      <a href="products.html" class="btn">Shop Now</a>
-    </div>
+    <h1>New Deals Daily</h1>
+    <p>Fresh picks from your favorite categories!</p>
+    <a href="#" class="btn">Shop Now</a>
   </section>
 
-  <section class="featured">
-    <div class="container">
-      <h3>Staff Picks</h3>
-      <div id="productList" class="product-grid"></div>
-    </div>
+  <section class="tags">
+    <button class="tag">Staff Picks</button>
+    <button class="tag">Fast Arrival</button>
+    <button class="tag">Budget Picks</button>
+    <button class="tag">Trending</button>
+  </section>
+
+  <section class="products-section">
+    <h2>Staff Picks</h2>
+    <div class="product-grid" id="productGrid"></div>
   </section>
 
   <footer>
-    <div class="container">
-      <p>&copy; 2025 WorkedIn. All rights reserved.</p>
-    </div>
+    &copy; 2025 WorkedIn. All rights reserved.
   </footer>
 
-  <div id="toast" class="toast">Added to cart!</div>
   <script src="script.js"></script>
 </body>
 </html>
