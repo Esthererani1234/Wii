@@ -3,37 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Products - WorkedIn</title>
+  <title>Product | WorkedIn</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="navbar">
-    <div class="container nav-flex">
-      <h1 class="logo"><a href="index.html">Worked<span>In</span></a></h1>
-      <div class="nav-icons">
-        <a href="profile.html"><i class="fas fa-user"></i></a>
-        <a href="cart.html">
-          <i class="fas fa-shopping-cart"></i>
-          <span class="cart-badge" id="cartCount">0</span>
-        </a>
-      </div>
+    <div class="logo">Worked<span>In</span></div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search products..." />
+      <button>Search</button>
+    </div>
+    <div class="nav-icons">
+      <a href="index.html"><img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Home" width="20" /></a>
+      <a href="cart.html"><img src="https://cdn-icons-png.flaticon.com/512/126/126515.png" alt="Cart" width="20" /><span id="cart-count">0</span></a>
+      <a href="profile.html"><img src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="Profile" width="20" /></a>
     </div>
   </header>
 
-  <section class="products">
-    <div class="container">
-      <h2>New Arrivals</h2>
-      <div id="productList" class="product-grid"></div>
+  <section class="product-page">
+    <div class="product-details">
+      <img id="product-image" src="" alt="Product" />
+      <div class="product-info">
+        <h2 id="product-name">Loading...</h2>
+        <p id="product-price"></p>
+        <div id="product-rating" style="margin-bottom: 0.5rem;"></div>
+        <p id="product-description">Loading description...</p>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" value="1" min="1" />
+
+        <p style="margin-top: 0.8rem; color: green;" id="delivery-estimate">Estimated delivery: 7–14 days</p>
+
+        <button id="add-to-cart" class="btn">Add to Cart</button>
+      </div>
     </div>
   </section>
 
   <footer>
-    <div class="container">
-      <p>&copy; 2025 WorkedIn. All rights reserved.</p>
-    </div>
+    <p>WorkedIn — All rights reserved.</p>
   </footer>
 
-  <script src="https://kit.fontawesome.com/a2e0e6adfe.js" crossorigin="anonymous"></script>
-  <script src="script.js"></script>
+  <script>
+    const product = JSON.parse(localStorage.getItem("selectedProduct"));
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    function renderProduct() {
+      if (!product) {
+        document.querySelector(".product-details").innerHTML = "<p>Product not found.</p>";
+        return;
+      }
+
+      document.getElementById("product-image").src = product.image;
+      document.getElementById("product-name").textContent = product.name;
+      document.getElementById("product-price").textContent = `$${product.price.toFixed(2)}`;
+      document.getElementById("product-description").textContent = product.description;
+
+      const stars = "★".repeat(product.rating) + "☆".repeat(5 - product.rating);
+      document.getElementById("product-rating").textContent = `Rating: ${stars}`;
+    }
+
+    document.getElementById("add-to-cart").addEventListener("click", () => {
+      const qty = parseInt(document.getElementById("quantity").value);
+      const existing = cart.find(p => p.id === product.id);
+
+      if (existing) {
+        existing.quantity += qty;
+      } else {
+        cart.push({ ...product, quantity: qty });
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert("Item added to cart!");
+    });
+
+    function updateCartCounter() {
+      const count = (JSON.parse(localStorage.getItem("cart")) || []).length;
+      document.getElementById("cart-count").textContent = count;
+    }
+
+    renderProduct();
+    updateCartCounter();
+  </script>
 </body>
 </html>
