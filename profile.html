@@ -3,52 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Account | WorkedIn</title>
+  <title>Profile | WorkedIn</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+  <script src="logout.js" defer></script>
 </head>
 <body>
   <header class="navbar">
-    <div class="logo">Worked<span>In</span></div>
-    <div class="search-bar">
-      <input type="text" placeholder="Search products..." />
-      <button>Search</button>
-    </div>
+    <div class="logo" onclick="location.href='index.html'">Worked<span>In</span></div>
     <div class="nav-icons">
-      <a href="index.html"><img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="Home" width="20" /></a>
-      <a href="cart.html"><img src="https://cdn-icons-png.flaticon.com/512/126/126515.png" alt="Cart" width="20" /><span id="cart-count">0</span></a>
-      <a href="profile.html"><img src="https://cdn-icons-png.flaticon.com/512/64/64572.png" alt="Profile" width="20" /></a>
+      <img src="search.png" alt="Search" />
+      <img src="cart.png" alt="Cart" onclick="location.href='cart.html'" />
+      <img src="profile.png" alt="Profile" />
     </div>
   </header>
 
-  <main class="profile-page">
-    <h2>Welcome to Your Account</h2>
-    <div class="profile-sections">
-      <div class="profile-box">
-        <h3>Your Orders</h3>
-        <p>View your order history and track shipments.</p>
-        <button onclick="alert('Orders not implemented yet.')">View Orders</button>
-      </div>
-      <div class="profile-box">
-        <h3>Wishlist</h3>
-        <p>Manage items you’ve saved for later.</p>
-        <button onclick="alert('Wishlist coming soon.')">Go to Wishlist</button>
-      </div>
-      <div class="profile-box">
-        <h3>Addresses</h3>
-        <p>View and update your saved shipping addresses.</p>
-        <button onclick="alert('Address management not implemented.')">Edit Addresses</button>
-      </div>
-      <div class="profile-box">
-        <h3>Dispute Center</h3>
-        <p>Need help with an order? Open a support case.</p>
-        <button onclick="alert('Dispute center coming soon.')">Open Dispute</button>
-      </div>
-      <div class="profile-box">
-        <h3>Logout</h3>
-        <p>Securely log out of your account.</p>
-        <button onclick="alert('Logout functionality will be added later.')">Log Out</button>
-      </div>
-    </div>
+  <main class="profile-container">
+    <h2>Welcome to Your Dashboard</h2>
+    <p id="userEmail">Loading email...</p>
+
+    <section class="profile-section">
+      <h3>Your Orders</h3>
+      <p>No orders yet.</p>
+    </section>
+
+    <section class="profile-section">
+      <h3>Wishlist</h3>
+      <p>Your saved items will appear here.</p>
+    </section>
+
+    <section class="profile-section">
+      <h3>Saved Address</h3>
+      <p>Add your shipping address for faster checkout.</p>
+    </section>
+
+    <section class="profile-section">
+      <h3>Dispute Center</h3>
+      <p>Open a case or check your resolution status.</p>
+    </section>
+
+    <button onclick="logout()" class="logout-button">Log Out</button>
   </main>
 
   <footer>
@@ -56,10 +51,20 @@
   </footer>
 
   <script>
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const count = cart.length;
-    const counter = document.getElementById("cart-count");
-    if (counter) counter.textContent = count;
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      appId: "YOUR_APP_ID",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        document.getElementById("userEmail").innerText = "Logged in as: " + user.email;
+      }
+    });
   </script>
 </body>
 </html>
