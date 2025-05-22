@@ -1,124 +1,60 @@
-document.addEventListener("DOMContentLoaded", () => {
+const products = [
+  { name: "Wireless Earbuds", price: "$19.99", image: "https://placehold.co/300x300?text=Wireless+Earbuds" },
+  { name: "Smart Watch", price: "$29.99", image: "https://placehold.co/300x300?text=Smart+Watch" },
+  { name: "Phone Stand", price: "$7.49", image: "https://placehold.co/300x300?text=Phone+Stand" },
+  { name: "Mini Humidifier", price: "$14.99", image: "https://placehold.co/300x300?text=Mini+Humidifier" },
+  { name: "LED Desk Lamp", price: "$23.99", image: "https://placehold.co/300x300?text=LED+Desk+Lamp" },
+  { name: "Fitness Tracker", price: "$34.99", image: "https://placehold.co/300x300?text=Fitness+Tracker" }
+];
+
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const uniqueItems = new Set(cart.map(item => item.name));
+  const countElement = document.querySelector(".cart-count");
+  if (countElement) countElement.textContent = uniqueItems.size;
+}
+
+function displayProducts(filteredList = products) {
   const productGrid = document.querySelector(".product-grid");
-  const cartCount = document.getElementById("cart-count");
-  const cartItemsContainer = document.getElementById("cartItems");
-  const productDetailContainer = document.getElementById("productDetail");
+  if (!productGrid) return;
+  productGrid.innerHTML = "";
 
-  const demoProducts = [
-    {
-      id: 1,
-      name: "Wireless Earbuds",
-      price: 19.99,
-      image: "https://via.placeholder.com/300x300.png?text=Earbuds",
-      description: "Bluetooth earbuds with high-quality sound.",
-    },
-    {
-      id: 2,
-      name: "Smart Watch",
-      price: 29.99,
-      image: "https://via.placeholder.com/300x300.png?text=Smart+Watch",
-      description: "Fitness tracking and smart notifications.",
-    },
-    {
-      id: 3,
-      name: "Phone Stand",
-      price: 7.49,
-      image: "https://via.placeholder.com/300x300.png?text=Phone+Stand",
-      description: "Adjustable stand for smartphones and tablets.",
-    }
-  ];
+  filteredList.forEach(product => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+    card.innerHTML = `
+      <img src="${product.image}" alt="${product.name}" />
+      <h3>${product.name}</h3>
+      <p>${product.price}</p>
+      <button onclick='addToCart(${JSON.stringify(product)})'>Add to Cart</button>
+    `;
+    productGrid.appendChild(card);
+  });
+}
 
-  function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    if (cartCount) cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-  }
+function addToCart(product) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  function showToast(message) {
-    let toast = document.createElement("div");
-    toast.className = "toast";
-    toast.innerText = message;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
-  }
-
-  function addToCart(id) {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const product = demoProducts.find(p => p.id === id);
-    const existing = cart.find(item => item.id === id);
-
-    if (existing) {
-      existing.quantity += 1;
-    } else {
-      cart.push({ ...product, quantity: 1 });
-    }
-
+  const exists = cart.find(item => item.name === product.name);
+  if (!exists) {
+    cart.push(product);
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
-    showToast(`${product.name} added to cart.`);
+    showToast("Item added to cart");
+  } else {
+    showToast("Item already in cart");
   }
+}
 
-  window.addToCart = addToCart;
+function showToast(message) {
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 2000);
+}
 
-  function loadCartPage() {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let total = 0;
-    if (!cartItemsContainer) return;
-
-    cartItemsContainer.innerHTML = cart.map(item => {
-      const itemTotal = item.quantity * item.price;
-      total += itemTotal;
-      return `
-        <div class="cart-item">
-          <img src="${item.image}" alt="${item.name}" />
-          <div>
-            <h4>${item.name}</h4>
-            <p>Price: $${item.price.toFixed(2)}</p>
-            <p>Quantity: ${item.quantity}</p>
-          </div>
-        </div>
-      `;
-    }).join("");
-
-    const totalEl = document.getElementById("cartTotal");
-    if (totalEl) totalEl.textContent = `$${total.toFixed(2)}`;
-  }
-
-  function loadProductPage() {
-    const params = new URLSearchParams(window.location.search);
-    const id = parseInt(params.get("id"));
-    const product = demoProducts.find(p => p.id === id);
-    if (!product || !productDetailContainer) return;
-
-    productDetailContainer.innerHTML = `
-      <div class="product-detail-flex">
-        <img src="${product.image}" alt="${product.name}" />
-        <div class="product-info">
-          <h2>${product.name}</h2>
-          <p class="product-price">$${product.price.toFixed(2)}</p>
-          <p>${product.description}</p>
-          <input type="number" id="quantity" min="1" value="1" />
-          <button onclick="addToCart(${product.id})">Add to Cart</button>
-        </div>
-      </div>
-    `;
-  }
-
-  // Show demo products if on homepage
-  if (productGrid) {
-    demoProducts.forEach(product => {
-      const card = document.createElement("div");
-      card.classList.add("product-card");
-      card.innerHTML = `
-        <img src="${product.image}" alt="${product.name}" />
-        <h3>${product.name}</h3>
-        <p>$${product.price.toFixed(2)}</p>
-        <button onclick="addToCart(${product.id})">Add to Cart</button>
-      `;
-      productGrid.appendChild(card);
-    });
-  }
-
+document.addEventListener("DOMContentLoaded", () => {
+  displayProducts();
   updateCartCount();
-  loadCartPage();
-  loadProductPage();
 });
