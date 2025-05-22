@@ -33,6 +33,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (cartCount) cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
   }
 
+  function showToast(message) {
+    let toast = document.createElement("div");
+    toast.className = "toast";
+    toast.innerText = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+  }
+
   function addToCart(id) {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const product = demoProducts.find(p => p.id === id);
@@ -46,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
-    alert(`${product.name} added to cart.`);
+    showToast(`${product.name} added to cart.`);
   }
 
   window.addToCart = addToCart;
@@ -71,7 +79,8 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }).join("");
 
-    document.getElementById("cartTotal").textContent = `$${total.toFixed(2)}`;
+    const totalEl = document.getElementById("cartTotal");
+    if (totalEl) totalEl.textContent = `$${total.toFixed(2)}`;
   }
 
   function loadProductPage() {
@@ -94,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
-  // Init based on page
+  // Show demo products if on homepage
   if (productGrid) {
     demoProducts.forEach(product => {
       const card = document.createElement("div");
