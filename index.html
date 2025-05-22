@@ -1,52 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WorkedIn Marketplace</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">Worked<span>In</span></div>
+    <div class="search-bar">
+      <input type="text" id="search" placeholder="Search products..." />
+      <button><i class="fas fa-search"></i></button>
     </div>
-  </section>
+    <div class="nav-icons">
+      <a href="dashboard.html"><i class="fas fa-user"></i></a>
+      <a href="cart.html"><i class="fas fa-shopping-cart"></i><span id="cart-count">0</span></a>
+    </div>
+  </header>
 
-  <!-- Promo Tags -->
-  <section class="promo-tags">
-    <div class="container">
-      <button class="tag">Popular</button>
-      <button class="tag">Staff Picks</button>
-      <button class="tag">Budget Finds</button>
-      <button class="tag">Top Rated</button>
-      <button class="tag">Fast Shipping</button>
-    </div>
-  </section>
+  <main>
+    <section class="hero">
+      <h1>New Deals Daily</h1>
+      <p>Fresh picks from your favorite categories!</p>
+      <a href="#" class="hero-btn">Shop Now</a>
+    </section>
 
-  <!-- Featured Products -->
-  <section class="products-section">
-    <div class="container">
-      <h2 class="section-title">Featured Products</h2>
-      <div class="product-grid" id="productGrid">
-        <!-- Products will be injected here by script.js -->
-      </div>
-    </div>
-  </section>
+    <section class="badges">
+      <span class="badge">Popular</span>
+      <span class="badge">Staff Picks</span>
+      <span class="badge">Budget Finds</span>
+      <span class="badge">Top Rated</span>
+      <span class="badge">Fast Shipping</span>
+    </section>
 
-  <!-- Banners / Highlights -->
-  <section class="banners">
-    <div class="container banners-grid">
-      <div class="banner-card">
-        <h3>Free Returns</h3>
-        <p>Shop worry-free with easy 30-day returns.</p>
+    <section class="products">
+      <h2>Featured Products</h2>
+      <div id="product-list" class="product-grid">
+        <!-- Products will be injected here -->
       </div>
-      <div class="banner-card">
-        <h3>New Deals Daily</h3>
-        <p>Stay ahead with limited-time offers refreshed every day.</p>
-      </div>
-      <div class="banner-card">
-        <h3>Smart Picks</h3>
-        <p>Our AI helps you find products you'll love.</p>
-      </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <p>&copy; 2025 WorkedIn. All rights reserved.</p>
-    </div>
+  <footer>
+    <p>© 2025 WorkedIn. All rights reserved.</p>
   </footer>
 
+  <div class="toast" id="toast">Item added to cart</div>
   <script src="script.js"></script>
 </body>
 </html>
