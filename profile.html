@@ -2,63 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Profile - WorkedIn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Account - WorkedIn</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://kit.fontawesome.com/a2e0e6adfe.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
-  <header class="header">
-    <div class="container header-content">
+  <header class="site-header">
+    <div class="container nav-bar">
       <h1 class="logo"><a href="index.html">Worked<span>In</span></a></h1>
-      <div class="search-container">
-        <input type="text" class="search-input" placeholder="Search products..." />
-        <i class="fas fa-search search-icon"></i>
-      </div>
-      <nav class="nav-icons">
+      <div class="nav-icons">
         <a href="profile.html"><i class="fas fa-user"></i></a>
-        <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
-      </nav>
+        <a href="cart.html" class="cart-link">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-count">0</span>
+        </a>
+      </div>
     </div>
   </header>
 
-  <main class="main-content">
-    <section class="profile">
-      <h2>Welcome, [User]</h2>
-      <div class="profile-grid">
-        <div class="profile-card">
-          <i class="fas fa-box"></i>
-          <h3>Your Orders</h3>
-          <p>Track and manage all purchases</p>
-        </div>
-        <div class="profile-card">
-          <i class="fas fa-heart"></i>
-          <h3>Wishlist</h3>
-          <p>Items you’ve saved for later</p>
-        </div>
-        <div class="profile-card">
-          <i class="fas fa-comments"></i>
-          <h3>Messages</h3>
-          <p>Support conversations & updates</p>
-        </div>
-        <div class="profile-card">
-          <i class="fas fa-map-marker-alt"></i>
-          <h3>Addresses</h3>
-          <p>Manage delivery locations</p>
-        </div>
-        <div class="profile-card">
-          <i class="fas fa-life-ring"></i>
-          <h3>Customer Service</h3>
-          <p>Open disputes or ask for help</p>
-        </div>
-      </div>
-    </section>
+  <main class="container">
+    <h2><i class="fas fa-user-circle"></i> Welcome to Your Profile</h2>
+    <div style="margin-top: 20px;">
+      <ul style="list-style: none; padding: 0; line-height: 2;">
+        <li><a href="#">Order History</a></li>
+        <li><a href="#">Saved Wishlist</a></li>
+        <li><a href="#">Messages / Support</a></li>
+        <li><a href="#">Saved Addresses</a></li>
+        <li><a href="#">Return & Dispute Center</a></li>
+      </ul>
+    </div>
   </main>
 
-  <footer class="footer">
+  <footer class="site-footer">
     <p>&copy; 2025 WorkedIn. All rights reserved.</p>
   </footer>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const cart = JSON.parse(localStorage.getItem("cart")) || {};
+      const count = Object.keys(cart).length;
+      const counter = document.querySelector(".cart-count");
+      if (counter) {
+        counter.textContent = count;
+      }
+    });
+  </script>
 </body>
 </html>
