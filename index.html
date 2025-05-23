@@ -9,34 +9,64 @@
 </head>
 <body>
   <header class="navbar">
-    <div class="logo" onclick="location.href='index.html'">Worked<span>In</span></div>
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search for products...">
-    </div>
-    <div class="nav-icons">
-      <img src="cart.png" alt="Cart" onclick="location.href='cart.html'" />
-      <img src="profile.png" alt="Profile" onclick="location.href='login.html'" />
+    <div class="navbar-container">
+      <div class="logo" onclick="location.href='index.html'">Worked<span>In</span></div>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search for products..." />
+      </div>
+      <div class="nav-icons">
+        <img src="cart.png" alt="Cart" onclick="location.href='cart.html'" />
+        <img src="profile.png" alt="Profile" onclick="location.href='login.html'" />
+      </div>
     </div>
   </header>
 
   <section class="hero">
     <h1>Welcome to WorkedIn</h1>
-    <p>Discover hot deals, fast delivery & smart savings!</p>
+    <p>Shop trending products, fast delivery & unbeatable value!</p>
     <button onclick="location.href='products.html'">Shop Now</button>
   </section>
 
   <section class="featured">
     <h2>Staff Picks</h2>
-    <div class="product-grid" id="staff-picks"></div>
+    <div class="product-grid" id="staff-picks">
+      <!-- Example placeholders -->
+      <div class="product-card">
+        <img src="placeholder1.jpg" alt="Product" />
+        <h3>Smartphone Stand</h3>
+        <p>$9.99</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="placeholder2.jpg" alt="Product" />
+        <h3>LED Desk Lamp</h3>
+        <p>$14.95</p>
+        <button>Add to Cart</button>
+      </div>
+    </div>
   </section>
 
   <section class="featured">
     <h2>New Arrivals</h2>
-    <div class="product-grid" id="new-arrivals"></div>
+    <div class="product-grid" id="new-arrivals">
+      <!-- Example placeholders -->
+      <div class="product-card">
+        <img src="placeholder3.jpg" alt="Product" />
+        <h3>Wireless Charger</h3>
+        <p>$11.50</p>
+        <button>Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="placeholder4.jpg" alt="Product" />
+        <h3>Portable Speaker</h3>
+        <p>$18.00</p>
+        <button>Add to Cart</button>
+      </div>
+    </div>
   </section>
 
   <footer>
-    <p>WorkedIn — All rights reserved.</p>
+    <p>&copy; 2025 WorkedIn. All rights reserved.</p>
   </footer>
 </body>
 </html>
