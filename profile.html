@@ -3,11 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Profile | WorkedIn</title>
+  <title>Your Dashboard | WorkedIn</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-  <script src="logout.js" defer></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCT2LnLUDoVhvYA5R0kB5BhJTHzIuX1xSA",
+      authDomain: "workedin-38aa3.firebaseapp.com",
+      projectId: "workedin-38aa3",
+      storageBucket: "workedin-38aa3.appspot.com",
+      messagingSenderId: "305634639635",
+      appId: "1:305634639635:web:9350cc6235e83064f424e6"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        document.getElementById("userEmail").innerText = "Logged in as: " + user.email;
+      } else {
+        window.location.href = "login.html"; // redirect if not logged in
+      }
+    });
+
+    function logout() {
+      auth.signOut().then(() => {
+        window.location.href = "login.html";
+      });
+    }
+  </script>
 </head>
 <body>
   <header class="navbar">
@@ -21,54 +46,33 @@
 
   <main class="profile-container">
     <h2>Your Dashboard</h2>
-    <p id="userEmail">Checking login status...</p>
+    <p id="userEmail">Loading...</p>
 
     <section class="profile-section">
-      <h3>Orders</h3>
-      <p>Your orders will appear here.</p>
+      <h3>Your Orders</h3>
+      <p>No orders found yet.</p>
     </section>
 
     <section class="profile-section">
       <h3>Wishlist</h3>
-      <p>Items you’ve saved for later.</p>
+      <p>Your favorite items will appear here.</p>
     </section>
 
     <section class="profile-section">
-      <h3>Saved Addresses</h3>
-      <p>Add or edit your shipping addresses.</p>
+      <h3>Shipping Address</h3>
+      <p>Save your address for faster checkout.</p>
     </section>
 
     <section class="profile-section">
       <h3>Dispute Center</h3>
-      <p>Track support cases and resolutions.</p>
+      <p>Open a case or track existing disputes.</p>
     </section>
 
     <button onclick="logout()" class="logout-button">Log Out</button>
   </main>
 
   <footer>
-    <p>© 2025 WorkedIn. All rights reserved.</p>
+    <p>WorkedIn — All rights reserved.</p>
   </footer>
-
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCT2LnLUDOvhyVA5R0kB5BhJTHzIUx1xSA",
-      authDomain: "workedin-38aa3.firebaseapp.com",
-      projectId: "workedin-38aa3",
-      storageBucket: "workedin-38aa3.appspot.com",
-      messagingSenderId: "305634639635",
-      appId: "1:305634639635:web:9350cc6235e83064f424e6"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        document.getElementById("userEmail").innerText = `Logged in as: ${user.email}`;
-      } else {
-        window.location.href = "login.html";
-      }
-    });
-  </script>
 </body>
 </html>
