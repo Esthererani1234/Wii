@@ -1,4 +1,6 @@
-// Firebase configuration using your actual credentials
+// auth.js
+
+// Your Firebase config from the screenshot
 const firebaseConfig = {
   apiKey: "AIzaSyCT2LnLUDoVhvYA5R0kB5BhJTHzIUx1xSA",
   authDomain: "workedin-38aa3.firebaseapp.com",
@@ -12,40 +14,28 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
-// Login with email and password
+// Login with email
 function login() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   auth.signInWithEmailAndPassword(email, password)
-    .then(() => {
-      window.location.href = "profile.html";
-    })
-    .catch(error => {
-      alert(error.message);
-    });
+    .then(() => window.location.href = "profile.html")
+    .catch(error => alert(error.message));
 }
 
-// Sign up with email and password
+// Signup with email
 function signup() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   auth.createUserWithEmailAndPassword(email, password)
-    .then(() => {
-      window.location.href = "profile.html";
-    })
-    .catch(error => {
-      alert(error.message);
-    });
+    .then(() => window.location.href = "profile.html")
+    .catch(error => alert(error.message));
 }
 
-// Google login
+// Login with Google
 function googleLogin() {
   const provider = new firebase.auth.GoogleAuthProvider();
   auth.signInWithPopup(provider)
-    .then(() => {
-      window.location.href = "profile.html";
-    })
-    .catch(error => {
-      alert(error.message);
-    });
+    .then(() => window.location.href = "profile.html")
+    .catch(error => alert(error.message));
 }
