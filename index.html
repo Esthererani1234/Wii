@@ -2,52 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WorkedIn Marketplace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WorkedIn</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
   <header class="navbar">
-    <div class="logo">Worked<span>In</span></div>
-    <div class="search-bar">
-      <input type="text" id="search" placeholder="Search products..." />
-      <button><i class="fas fa-search"></i></button>
-    </div>
+    <div class="logo" onclick="location.href='index.html'">Worked<span>In</span></div>
     <div class="nav-icons">
-      <a href="dashboard.html"><i class="fas fa-user"></i></a>
-      <a href="cart.html"><i class="fas fa-shopping-cart"></i><span id="cart-count">0</span></a>
+      <img src="search.png" alt="Search" />
+      <img src="cart.png" alt="Cart" onclick="location.href='cart.html'" />
+      <img src="profile.png" alt="Profile" onclick="location.href='login.html'" />
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <h1>New Deals Daily</h1>
-      <p>Fresh picks from your favorite categories!</p>
-      <a href="#" class="hero-btn">Shop Now</a>
-    </section>
-
-    <section class="badges">
-      <span class="badge">Popular</span>
-      <span class="badge">Staff Picks</span>
-      <span class="badge">Budget Finds</span>
-      <span class="badge">Top Rated</span>
-      <span class="badge">Fast Shipping</span>
-    </section>
-
-    <section class="products">
-      <h2>Featured Products</h2>
-      <div id="product-list" class="product-grid">
-        <!-- Products will be injected here -->
-      </div>
-    </section>
+  <main class="home-hero">
+    <h1>Welcome to WorkedIn</h1>
+    <p>Shop smart. Live better. Your new favorite marketplace starts here.</p>
   </main>
 
   <footer>
-    <p>© 2025 WorkedIn. All rights reserved.</p>
+    <p>WorkedIn — All rights reserved.</p>
   </footer>
-
-  <div class="toast" id="toast">Item added to cart</div>
-  <script src="script.js"></script>
 </body>
 </html>
