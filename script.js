@@ -26,17 +26,17 @@ const products = [
   }
 ];
 
-// Load products to homepage
-function loadProducts() {
-  const grid = document.querySelector(".product-grid");
+// Load products into a specific section
+function loadProducts(sectionId, productList) {
+  const grid = document.getElementById(sectionId);
   if (!grid) return;
 
-  products.forEach(product => {
+  productList.forEach(product => {
     const card = document.createElement("div");
     card.className = "product-card";
     card.innerHTML = `
       <img src="${product.image}" alt="${product.name}" />
-      <h4>${product.name}</h4>
+      <h3>${product.name}</h3>
       <p>$${product.price.toFixed(2)}</p>
       <button onclick="addToCart(${product.id})">Add to Cart</button>
     `;
@@ -44,7 +44,7 @@ function loadProducts() {
   });
 }
 
-// Cart logic
+// Add item to cart
 function addToCart(productId) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
@@ -62,33 +62,41 @@ function addToCart(productId) {
   showToast("Added to cart");
 }
 
+// Update cart counter in header
 function updateCartCounter() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  const counter = document.querySelector("#cart-count");
+  const counter = document.getElementById("cart-count");
   if (counter) {
-    counter.innerText = cart.length;
+    const uniqueItems = cart.length;
+    counter.textContent = uniqueItems;
   }
 }
 
+// Show toast notification
 function showToast(message) {
-  let toast = document.createElement("div");
-  toast.innerText = message;
-  toast.style.position = "fixed";
-  toast.style.bottom = "20px";
-  toast.style.left = "50%";
-  toast.style.transform = "translateX(-50%)";
-  toast.style.background = "#333";
-  toast.style.color = "#fff";
-  toast.style.padding = "10px 20px";
-  toast.style.borderRadius = "4px";
-  toast.style.zIndex = 9999;
+  const toast = document.createElement("div");
+  toast.className = "toast-message";
+  toast.textContent = message;
+  Object.assign(toast.style, {
+    position: "fixed",
+    bottom: "20px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    background: "#333",
+    color: "#fff",
+    padding: "10px 20px",
+    borderRadius: "4px",
+    zIndex: 9999
+  });
   document.body.appendChild(toast);
   setTimeout(() => {
     document.body.removeChild(toast);
   }, 2000);
 }
 
+// Initial load
 window.onload = () => {
-  loadProducts();
+  loadProducts("staff-picks", products.slice(0, 2));
+  loadProducts("new-arrivals", products.slice(2));
   updateCartCounter();
 };
