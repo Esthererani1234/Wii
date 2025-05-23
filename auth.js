@@ -1,6 +1,6 @@
-// Firebase config
+// Firebase configuration using your actual credentials
 const firebaseConfig = {
-  apiKey: "AIzaSyCT2LnLUDOvhyVA5R0kB5BhJTHzIuX1xSA",
+  apiKey: "AIzaSyCT2LnLUDoVhvYA5R0kB5BhJTHzIUx1xSA",
   authDomain: "workedin-38aa3.firebaseapp.com",
   projectId: "workedin-38aa3",
   storageBucket: "workedin-38aa3.appspot.com",
@@ -12,36 +12,40 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
-// Login function
+// Login with email and password
 function login() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
-
   auth.signInWithEmailAndPassword(email, password)
     .then(() => {
       window.location.href = "profile.html";
     })
-    .catch(error => alert(error.message));
+    .catch(error => {
+      alert(error.message);
+    });
 }
 
-// Signup function
+// Sign up with email and password
 function signup() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
-
   auth.createUserWithEmailAndPassword(email, password)
     .then(() => {
       window.location.href = "profile.html";
     })
-    .catch(error => alert(error.message));
+    .catch(error => {
+      alert(error.message);
+    });
 }
 
-// Google login function
+// Google login
 function googleLogin() {
   const provider = new firebase.auth.GoogleAuthProvider();
   auth.signInWithPopup(provider)
     .then(() => {
       window.location.href = "profile.html";
     })
-    .catch(error => alert(error.message));
+    .catch(error => {
+      alert(error.message);
+    });
 }
