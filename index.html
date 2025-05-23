@@ -15,8 +15,13 @@
         <input type="text" id="searchInput" placeholder="Search for products..." />
       </div>
       <div class="nav-icons">
-        <img src="cart.png" alt="Cart" onclick="location.href='cart.html'" />
-        <img src="profile.png" alt="Profile" onclick="location.href='login.html'" />
+        <div class="icon-wrapper" onclick="location.href='cart.html'">
+          <img src="cart.png" alt="Cart" />
+          <span id="cart-count">0</span>
+        </div>
+        <div class="icon-wrapper" onclick="location.href='login.html'">
+          <img src="profile.png" alt="Profile" />
+        </div>
       </div>
     </div>
   </header>
@@ -29,40 +34,12 @@
 
   <section class="featured">
     <h2>Staff Picks</h2>
-    <div class="product-grid" id="staff-picks">
-      <!-- Example placeholders -->
-      <div class="product-card">
-        <img src="placeholder1.jpg" alt="Product" />
-        <h3>Smartphone Stand</h3>
-        <p>$9.99</p>
-        <button>Add to Cart</button>
-      </div>
-      <div class="product-card">
-        <img src="placeholder2.jpg" alt="Product" />
-        <h3>LED Desk Lamp</h3>
-        <p>$14.95</p>
-        <button>Add to Cart</button>
-      </div>
-    </div>
+    <div class="product-grid" id="staff-picks"></div>
   </section>
 
   <section class="featured">
     <h2>New Arrivals</h2>
-    <div class="product-grid" id="new-arrivals">
-      <!-- Example placeholders -->
-      <div class="product-card">
-        <img src="placeholder3.jpg" alt="Product" />
-        <h3>Wireless Charger</h3>
-        <p>$11.50</p>
-        <button>Add to Cart</button>
-      </div>
-      <div class="product-card">
-        <img src="placeholder4.jpg" alt="Product" />
-        <h3>Portable Speaker</h3>
-        <p>$18.00</p>
-        <button>Add to Cart</button>
-      </div>
-    </div>
+    <div class="product-grid" id="new-arrivals"></div>
   </section>
 
   <footer>
