@@ -1,13 +1,8 @@
-const auth = firebase.auth();
-
-auth.onAuthStateChanged((user) => {
-  if (!user) {
-    window.location.href = "login.html";
-  }
-});
-
+// Logout function
 function logout() {
-  auth.signOut().then(() => {
+  firebase.auth().signOut().then(() => {
     window.location.href = "login.html";
+  }).catch((error) => {
+    alert("Error logging out: " + error.message);
   });
 }
