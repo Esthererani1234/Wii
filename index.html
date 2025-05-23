@@ -3,24 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>WorkedIn</title>
+  <title>WorkedIn - Shop Smarter</title>
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
 <body>
   <header class="navbar">
     <div class="logo" onclick="location.href='index.html'">Worked<span>In</span></div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search for products...">
+    </div>
     <div class="nav-icons">
-      <img src="search.png" alt="Search" />
       <img src="cart.png" alt="Cart" onclick="location.href='cart.html'" />
       <img src="profile.png" alt="Profile" onclick="location.href='login.html'" />
     </div>
   </header>
 
-  <main class="home-hero">
+  <section class="hero">
     <h1>Welcome to WorkedIn</h1>
-    <p>Shop smart. Live better. Your new favorite marketplace starts here.</p>
-  </main>
+    <p>Discover hot deals, fast delivery & smart savings!</p>
+    <button onclick="location.href='products.html'">Shop Now</button>
+  </section>
+
+  <section class="featured">
+    <h2>Staff Picks</h2>
+    <div class="product-grid" id="staff-picks"></div>
+  </section>
+
+  <section class="featured">
+    <h2>New Arrivals</h2>
+    <div class="product-grid" id="new-arrivals"></div>
+  </section>
 
   <footer>
     <p>WorkedIn — All rights reserved.</p>
